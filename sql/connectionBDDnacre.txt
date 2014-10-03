@@ -1,0 +1,4 @@
+nom de la base: db
+serveur: localhost
+user: user
+mot de passe: pass

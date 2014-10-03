@@ -1,0 +1,59 @@
+#!/usr/bin/env ruby
+require "waveformjson"
+require "optparse"
+
+options = Waveformjson::DefaultOptions
+optparse = OptionParser.new do |o|
+  o.banner = "Usage: waveformjson [options] source_audio [ouput.json]"
+  o.version = Waveformjson::VERSION
+
+  o.on("-m", "--method METHOD", "Wave analyzation method (can be 'peak' or 'rms') -- Default '#{Waveformjson::DefaultOptions[:method]}'.") do |method|
+    options[:method] = method.to_sym
+  end
+
+  o.on("-W", "--width WIDTH", "Width (in pixels) of generated waveform image -- Default #{Waveformjson::DefaultOptions[:width]}.") do |width|
+    options[:width] = width.to_i
+  end
+
+  options[:logger] = $stdout
+  o.on("-q", "--quiet", "Don't print anything out when generating waveform") do
+    options[:logger] = nil
+  end
+
+  options[:force] = false
+  o.on("-F", "--force", "Force generationg of waveform if file exists") do
+    options[:force] = true
+  end
+
+  o.on("-h", "--help", "Display this screen") do
+    puts o
+    exit
+  end
+end
+
+optparse.parse!
+
+begin
+  output = ARGV[1] || "waveform.json"
+
+  if File.exists?(output) && !options[:force]
+    raise RuntimeError.new("Destination file #{output} exists. Use --force if you want to automatically remove it.")
+  end
+
+  json = Waveformjson.generate(ARGV[0], options)
+  File.open(output, 'w') do |f|
+    f << '['
+
+    json.each_with_index do |d, index|
+      f << d
+      f << ', ' unless index == json.size - 1
+    end
+
+    f << ']'
+  end
+rescue ArgumentError => e
+  puts e.message + "\n\n"
+  puts optparse
+rescue RuntimeError => e
+  puts e.message
+end

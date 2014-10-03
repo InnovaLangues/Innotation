@@ -1,0 +1,179 @@
+body, html {
+	padding: 0;
+	margin: 0;
+}
+
+#page {
+	margin: auto;
+}
+
+#top {
+	display: none;
+}
+
+#navbar {
+	display: none;
+}
+
+#navigation {
+	display: none;
+}
+
+.toctoggle {
+	display: none;
+}
+
+#main {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 10pt;
+	line-height: 14pt;
+	orphans: 5;
+	widows: 5;
+}
+
+#main h2 + p {
+	display: none;
+}
+
+#main a {
+	text-decoration: none;
+}
+
+#main h3 {
+	display: none;
+}
+
+#main h1 {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 14pt;
+	page-break-after: avoid;
+}
+
+#main h2 {
+	color: #980101;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12pt;
+	padding: 5pt 0 0 0;
+	margin: 10pt 0 0 0;
+	page-break-after: avoid;
+}
+
+#main p {
+	text-align: justify;
+	padding: 5pt 0 5pt 0;
+	margin: 0;
+}
+
+.fn_top {
+	color: #000;
+	vertical-align: super;
+	font-size: 6pt;
+}
+
+.fn_bot {
+	color: #000;
+}
+
+#main img {
+	border: 0;
+}
+
+#main blockquote {
+	background-color: #d9bb7a;
+	border: 1pt solid #816647;
+}
+
+#pagetitle {
+	text-align: center;
+	margin: 0;
+}
+
+h2#pagetitle {
+	font-size: 0;
+}
+
+#pagetitle a {
+	color: #565248;
+	font-size: 20pt;
+}
+
+.toc {
+	color: #000;
+	font-weight: bold;
+	margin: 20pt 0;
+	border: 1pt solid #986601;
+}
+
+.tocheader {
+	background-color: #d9bb7a;
+	text-align: center;
+	padding: 5pt;
+	border-bottom: 1pt solid #986601;
+}
+
+#tocinside {
+	padding: 10pt;
+}
+
+ul.toc {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+.toc a {
+	border: 0;
+}
+
+.toc li {
+	padding-left: 10pt;
+	border: 0;
+}
+
+li.clear {
+	display: none;
+}
+
+.code {
+	background-color: #eee;
+	font-family: monaco, "Bitstream Vera Sans Mono", "Courier New", courier, monospace;
+	font-size: 9pt;
+	font-style: oblique;
+	white-space: pre-wrap;
+	padding: 5pt;
+	margin: 5pt 0;
+	border: 1pt solid #ccc;
+}
+
+.secedit {
+	display: none;
+}
+
+.wikilink1 {
+	color: #090;
+}
+
+.wikilink2 {
+	color: #f30;
+}
+
+.urlextern {
+	color: #436976;
+}
+
+#main table {
+	margin: auto;
+	text-align: center;
+	border-spacing: 0;
+}
+
+#main table td {
+	padding: 5pt;
+	border: 1pt solid #986601;
+}
+
+#footer {
+	display: none;
+}
+

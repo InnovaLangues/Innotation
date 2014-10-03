@@ -1,0 +1,817 @@
+body{
+	background : #900000;	
+	margin:0;
+	font-family: arial, sans-serif;
+	color:#2E4338;
+	font-size:14px;
+}
+
+
+#main{
+	background: none repeat scroll 0 0 white;
+	margin: auto;
+	width: 90%;
+	height: 100%;
+	padding:20px;
+}
+
+#footer{
+	background: none repeat scroll 0 0 none;
+	margin: auto;
+	width: 90%;
+	height: 40px;
+	padding:10px;
+	text-align:center;
+	color:white;
+}
+
+
+#impressionText{
+	margin-left:50px;	
+}
+
+#impressionText h1{
+	margin-bottom:20px;	
+}
+
+#impressionText p {
+	margin-bottom:5px;	
+}
+
+#footer a,
+#footer a:visited,
+#footer a:hover,
+#footer a:link{
+	color:white;
+}
+
+
+/* ==========================================================================
+   EN TETE
+   ========================================================================== */
+
+#header{
+	height:65px;
+	width:100%;
+	margin:auto;
+	position:relative;
+}
+
+#header #logo{
+	background: url("swans_player.png") no-repeat scroll -200px 0 transparent;
+	display: inline-block;
+	height: 37px;
+	margin-left: 50px;
+	width: 197px;
+}
+
+/* ==========================================================================
+   LECTEUR AUDIO
+   ========================================================================== */
+#progress{
+	border-radius: 5px 5px 5px 5px;
+	height: 22px;
+	margin: 10px auto auto;
+	padding: 0;
+	width: 90%;
+}
+
+#progress .bar {
+	background: url("../img/progressbar.gif") repeat scroll 0 0 transparent !important;
+	border-radius: 5px 5px 5px 5px;
+	filter: none;
+	height: 22px;
+	width:0px;
+}
+
+
+#containerImport{  
+	background: none repeat scroll 0 0 #F3EAD1;
+	border: 1px dashed #06A0E0;
+	height: 270px;
+	text-align:center;
+	cursor:pointer;
+}
+
+/*
+#containerImport:hover{  
+	background: none repeat scroll 0 0 #DDD7C7;
+}*/
+
+
+.afficherVideo{
+	display:none;
+}
+
+#controlesPrincipaux{
+	display: inline-block;
+	margin-left: 30px;
+	width: 200px;
+}
+
+
+#controlesPrincipaux ul.jp-controls {
+	list-style-type:none;
+	margin:0;
+	padding: 0;
+	overflow:hidden;
+}
+
+
+#controlesPrincipaux ul.jp-controls,
+#controlesPrincipaux ul.jp-controls li{
+	display:inline;
+	float: left;
+}
+
+#controlesPrincipaux ul.jp-controls li a{
+	display:block;
+	overflow:hidden;
+	text-indent:-9999px;
+}
+
+#fileupload{
+	/*display:none;*/
+}
+
+
+#fake-open-container{
+	margin: 16px auto auto;
+	padding: 0 10px;
+	text-align: center;
+}
+
+#fake-open{
+	background: url("swans_player.png") no-repeat scroll -100px -50px transparent;
+	display: inline-block;
+	height: 34px;
+	position: relative;
+	width: 30px;
+}
+#fake-open-container:hover #fake-open{
+	background: url("swans_player.png")  -130px -50px no-repeat;
+}
+
+
+
+
+#lecteurAudio{
+	background: white;
+	overflow:hidden;
+	position:relative;
+
+}
+
+#lecteurAudio_multimedia{
+	width:100%;
+	table-layout:fixed;
+	overflow:hidden; 
+	white-space: nowrap;
+}
+
+#lecteurAudio_multimedia td{
+	table-layout:fixed;
+	overflow:hidden; 
+	white-space: nowrap;
+}
+
+#lecteurAudio_multimedia #navGauche, #lecteurAudio_multimedia #navDroite{
+	width:30px;
+	background:#2E4338;
+	cursor:pointer;
+	vertical-align:middle;
+	text-align:center;
+}
+#lecteurAudio_multimedia #navGauche:hover, #lecteurAudio_multimedia #navDroite:hover{
+	background:#172B32;
+}
+#lecteurAudio_multimedia #navGauche span, #lecteurAudio_multimedia #navDroite span{
+	width: 16px;
+	height: 31px;
+	display:inline-block;
+}
+
+#lecteurAudio_multimedia #navGauche span{
+	background: url("swans_player.png") no-repeat scroll  -250px -50px  transparent;
+}
+
+#lecteurAudio_multimedia #navDroite span{
+	background: url("swans_player.png") no-repeat scroll  -250px -100px  transparent;
+}
+
+
+#visuel{
+	overflow:hidden;
+	position:relative;
+	white-space:nowrap;
+	height:270px;
+	background:#F3EAD1;
+}
+
+#visuel #waveform, #lecteurAudio #cadreSynchro, #visuel #video, #visuel #audio{
+	height:270px;
+	text-align:center;
+	width:100%;	
+	margin:auto;
+	white-space:nowrap;
+}
+
+
+#visuel #waveform, #lecteurAudio #cadreSynchro{
+	position:absolute;
+	top:0px;
+	
+}
+
+#visuel #waveform,#visuel #video,#visuel #audio{
+	z-index:500;
+} 
+
+
+#visuel #waveform_img,#visuel #waveform_img canvas{
+	left: 0;
+	position: absolute;
+	z-index: 501;
+	width:100%;
+	height:270px;
+}
+
+
+#lecteurAudio #cadreSynchro, #lecteurAudio #cadreSynchro div{
+	z-index:502;
+}
+
+
+#lecteurAudio #cadreSynchro .blocSynchroText{
+	display:block;
+	float:left;
+	height:100%;
+	width:100%;
+	background:transparent;
+	opacity: 1;
+	position:absolute;
+	top:0px;
+	border-right:1px dashed #06A0E0;
+}
+
+#lecteurAudio #cadreSynchro .blocSynchroText:nth-child(even){
+	background:transparent;
+}
+
+
+
+
+#lecteurAudio_interactiveButtons {
+  background: none repeat scroll 0 0 #B5B8BD;
+  padding-bottom: 5px;
+  text-align: center;
+}
+
+#lecteurAudio_interactiveButtons table{
+	margin:auto;
+	width:400px;
+}
+
+#btn_ouvrirFichier,#btn_stop,#btn_recule,#btn_pause,
+#btn_avance,#btn_afficherTexte,#btn_afficherVideo,#btn_agrandirVideo{
+	vertical-align:middle;
+	width:12.5%;
+	height:40px;
+	text-align:center;
+}
+
+
+#btn_ouvrirFichier span,#btn_stop span,#btn_recule span,#btn_pause span,
+#btn_avance span,#btn_afficherTexte span,#btn_afficherVideo span,#btn_agrandirVideo span{
+	width:50px;
+	height:50px;
+	display:block;
+	margin:auto;
+	cursor:pointer;
+}
+#btn_ouvrirFichier span{
+	width:50px;
+	height:50px;
+	display:block;
+	cursor:pointer;
+}
+
+#video, #audio{
+	background:#F3EAD1;
+	margin:auto;
+	display:none;
+}
+
+#audio{
+	display:block;
+}
+	
+/* ==========================================================================
+   BLOC DE TEXTE
+   ========================================================================== */
+#synchonisationAnnotation{
+	margin-top: 20px;
+}
+
+
+#synchonisationAnnotationText{
+	overflow-x:hidden;
+	height:192px;	
+}
+
+#synchonisationAnnotation table{
+	width:100%;
+}
+
+
+#synchonisationAnnotation #fleche_haut, #synchonisationAnnotation #fleche_bas{
+	width:100%;
+	height:20px;
+	text-align:center;
+	background:#2E4338;
+	cursor:pointer;
+	
+    	overflow:hidden;
+}
+
+#synchonisationAnnotation #fleche_haut:hover, #synchonisationAnnotation #fleche_bas:hover{
+		background:#172B32;
+}
+
+#synchonisationAnnotation #fleche_haut span, #synchonisationAnnotation #fleche_bas span{
+	width: 31px;
+	height: 16px;
+	display:inline-block;
+	margin-top:1px;
+}
+
+#synchonisationAnnotation #fleche_haut span{
+	background: url("swans_player.png") no-repeat scroll  -200px -100px  transparent;
+}
+
+#synchonisationAnnotation #fleche_bas span{
+	background: url("swans_player.png") no-repeat scroll  -200px -50px  transparent;
+}
+
+    
+    
+
+
+#synchonisationAnnotation table thead th, #synchonisationAnnotation table tfoot td{
+	height:25px;
+	background:#002001;
+	cursor:pointer;
+}
+
+
+
+#synchonisationAnnotation table tbody tr{
+	margin:0;
+	padding:0;
+}
+
+
+#synchonisationAnnotation table tbody td{
+	background : #F2EDCF;
+	padding:4px;
+	height:14px;
+}
+
+#synchonisationAnnotation table tbody td.TDtextCol{
+	background : #F2EDCF;
+	padding:0px;
+	height:27px;
+}
+
+
+
+#synchonisationAnnotation table tbody tr:nth-child(even) td{
+	background : #E1DAC7;
+}
+
+#synchonisationAnnotation table tbody .timeCol, #synchonisationAnnotation table tbody .timeCol input{
+	width:70px;
+	border:none;
+	text-align:center;
+}
+
+#synchonisationAnnotation table tbody .timeCol input{
+	background:transparent;	
+}
+
+#synchonisationAnnotation table tbody .separation,
+#synchonisationAnnotation table tbody tr:nth-child(even) .separation{
+	width:8px;
+	background : white;
+}
+
+
+div.textCol{
+	min-height: 23px;
+	padding: 4px 4px 0;
+}
+
+td div.focusLigne{
+	border: 1px dashed #06A0E0;
+}
+
+td div.focusLigne, .focusLigne{
+	border-top: 5px solid #06A0E0;	
+}
+
+
+#synchonisationAnnotation table tbody .suppressionCol{
+	width:24px;
+	text-align:center;
+	vertical-align:middle;
+	cursor:pointer;
+}
+
+#synchonisationAnnotation table tbody .suppressionCol span{
+	background: url("swans_player.png") no-repeat scroll   0 -300px  transparent;
+	display:inline-block;
+	width: 16px;
+	height: 16px;
+	top:2px;
+	position:relative;
+}
+
+#synchonisationAnnotation table tbody .suppressionCol:hover span{
+	background: url("swans_player.png") no-repeat scroll  -16px -300px  transparent;
+}
+
+/* ==========================================================================
+   BLOC DE COULEURS POUR ANNOTATION
+   ========================================================================== */
+
+#couleurAnnotation{
+	padding-top:0px;	
+	background:#B5B8BD;
+}
+
+#couleurAnnotation table{
+		width:100%;
+		table-layout:fixed;
+		overflow:hidden;
+}
+
+#couleurAnnotation table thead th{
+	padding:2px 10px;
+	text-align:left;
+}
+
+#couleurAnnotation table tbody td{
+		padding:10px;
+		width:20%;
+		text-align:center;
+}
+
+
+.cocher, .decocher{
+	display: inline-block;
+	height: 27px;
+	position: relative;
+	top: 6px;
+	width: 23px;
+}
+
+
+.cocher{
+	background: url("swans_player.png") no-repeat scroll -100px -150px  transparent;
+}
+
+.decocher{
+	background: url("swans_player.png") no-repeat scroll  -123px -150px  transparent;
+}
+
+#afficherAnnotation{
+	cursor:pointer;
+	display: block;
+	padding-bottom: 10px;
+}
+
+
+#couleurAnnotation table tbody td input{
+		display:inline-block;
+		width:100px;
+		height:30px;
+		cursor:pointer;
+}
+
+#bloc_annotationAuto{color:#5A0000;text-transform:uppercase;font-weight:bold;}
+#bloc_accentPrimaire{	background: none repeat scroll 0 0 #2797ED;}
+#bloc_accentSecondaire{	background: none repeat scroll 0 0 #AD0101;}
+#bloc_voyelleFaible{	background: none repeat scroll 0 0 #F1591A;}
+#bloc_alphabetNormal{	background: none repeat scroll 0 0 black;}
+
+
+#edit_titre_exo{
+	width:330px;
+	display:inline-block;	
+}
+
+
+.textCol .A_accentPrimaire{
+	color:#2797ED;
+	font-size:18px;
+}
+.textCol .A_accentSecondaire{
+	color:#AD0101;
+	font-size:16px;
+}
+.textCol .A_voyelleFaible{
+	color:#F1591A;
+	font-size:10px;
+}
+
+.textCol, #synchonisationAnnotation .A_disabled{
+	font-size:14px;
+	color:black;	
+}
+
+/* webkit, opera, IE9 */
+::selection { background:#00A1E5; color:white;}
+/* mozilla firefox */
+::-moz-selection { background:#00A1E5;  color:white;}
+
+
+/* ==========================================================================
+   MESSAGE INFORMATIONS
+   ========================================================================== */
+
+.jp-no-solution{
+	background-color: #EEEEEE;
+	border: 1px dashed #06A0E0;
+	color: #1EA0EB;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 10px;
+	text-align: left;
+	display:none;
+}
+
+
+.imageAlerte{
+	float: left;
+	height: 33px;
+	margin-right: 10px;
+	width: 32px;
+}
+
+.imageAlerte span{
+	background: url("swans_player.png") no-repeat scroll -250px -350px transparent;
+	display: inline-block;
+	height: 33px;
+	width: 32px;
+}
+
+#messageAlerte{
+	padding:10px;	
+}
+
+.info .imageAlerte span{
+	background: url("swans_player.png") no-repeat scroll -250px -350px transparent;
+}
+.erreur .imageAlerte span{
+	background: url("swans_player.png") no-repeat scroll -300px -350px transparent;
+}
+.valide .imageAlerte span{
+	background: url("swans_player.png") no-repeat scroll -200px -350px transparent;
+}
+.info #messageAlerte{
+	color:#1EA0EB;
+}
+
+.erreur #messageAlerte{
+	color:#9C2E31;
+}
+
+.valide #messageAlerte{
+	color:#3EDD53;
+}	
+
+/* ==========================================================================
+   UPLOAD FICHIER
+   ========================================================================== */
+
+.fileupload-loading {
+  float: right;
+  width: 32px;
+  height: 32px;
+  background: url(../img/loading.gif) center no-repeat;
+  background-size: contain;
+  display: none;
+}
+
+
+.fileupload-processing .fileupload-loading {
+  display: block;
+}
+
+/* ==========================================================================
+   LISTING EXOS
+   ========================================================================== */
+
+#listeExo{
+	margin-top: 20px;
+}
+
+#listeExo table{
+	width:100%;
+	border-collapse:separate;
+	border-spacing : 3px;
+}
+
+#listeExo table tbody td a,#listeExo table tbody td a:visited,#listeExo table tbody td a:hover,#listeExo table tbody td a:link{
+	color: #2E4338;
+	display: block;
+	height: 100%;
+	text-decoration: none;
+	width: 100%;
+	padding:4px 0;
+	cursor:pointer;
+} 
+
+
+#listeExo table tfoot td a,#listeExo table tfoot td a:visited,#listeExo table tfoot td a:hover,#listeExo table tfoot td a:link{
+	color: #2E4338;
+	cursor: pointer;
+	display: inline-block;
+	padding: 4px 0;
+	text-decoration: none;
+}
+
+#listeExo table td{
+	text-align:center;
+	vertical-align:middle;
+}
+
+
+#listeExo table tbody tr td{
+	background:#B2C0CB;
+	
+}
+
+#listeExo table tbody tr:hover td{
+	background:#A6B2BC;
+}
+
+
+#listeExo table td.editExo,
+#listeExo table td.supprExo{
+	width:40px;
+}
+
+#listeExo table td.supprExo{
+	border-radius:0 10px 10px 0;	
+}
+
+#listeExo table td.titreExo{
+	text-align:left;
+	padding-left:16px;
+	
+}
+
+
+
+#listeExo table td.editExo span{
+	background: url("swans_player.png") no-repeat scroll -50px -350px transparent;
+	position: relative;
+	width: 22px;
+	height: 22px;
+	cursor:pointer;
+	display:inline-block;
+}
+
+
+#listeExo table td.supprExo span {
+	background: url("swans_player.png") no-repeat scroll 0 -350px transparent;
+	position: relative;
+	width: 22px;
+	height: 22px;
+	cursor:pointer;
+	display:inline-block;
+}
+
+
+#listeExo table td.editExo:hover span{
+	background: url("swans_player.png") no-repeat scroll -72px -350px transparent;
+}
+
+
+#listeExo table td.supprExo:hover span{
+	background: url("swans_player.png") no-repeat scroll -22px -350px transparent;
+}
+
+
+
+#ajouterExo{
+	background: url("swans_player.png") no-repeat scroll 0 -250px transparent;
+	display: inline-block;
+	position: relative;
+	width: 59px;
+	height: 46px;
+	cursor:pointer;
+	margin-top:10px;
+	cursor:pointer;
+}
+
+
+#ajouterExo:hover{
+	background: url("swans_player.png") no-repeat scroll -59px -250px transparent;
+}
+
+#fullScreen{
+	display:none;
+}
+
+.separateur{
+	display: block;
+	overflow: hidden;
+	text-indent: -9999px;
+  background: #B5B8BD;
+  height: 34px;
+  margin-left: 10px;
+  width: 1px;
+}
+
+
+.itemaudio{
+	background: url("swans_player.png") no-repeat scroll   -250px -300px  transparent;
+	display: inline-block;
+	height: 22px;
+	margin-right: 12px;
+	position: relative;
+	top: 3px;
+	width: 22px;
+}
+
+.itemvideo{
+	
+	background: url("swans_player.png") no-repeat scroll   -200px -300px  transparent;
+	display: inline-block;
+	height: 22px;
+	
+	margin-right: 12px;
+	position: relative;
+	top: 3px;
+	width: 22px;
+}
+
+#fake-open-container .itemContainer{
+	background-color: #2E4238;
+	border-radius: 4px 4px 4px 4px;
+	display: inline-block;
+	height: 26px;
+	margin-right: 10px;
+	padding: 3px;
+	width: 24px;
+}
+
+
+/* ==========================================================================
+   MEDIA QUERIES
+   ========================================================================== */
+
+
+@media all and (max-width: 700px)
+{
+    #navGauche, #navDroite{
+    	display:none;	
+    }
+
+  
+    #couleurAnnotation table tbody td input{
+    	width:60px;
+    }
+    
+    #synchonisationAnnotation table tbody td.separation{
+     	width:2px;
+    	padding:0;
+    	margin:0;
+    }
+    #synchonisationAnnotation table tbody .timeCol, #synchonisationAnnotation table tbody .timeCol input{
+    	width:50px;
+    }
+    
+}
+
+@media all and (max-height: 830px)
+{
+		#main{
+			padding-top:10px;
+		}
+    #header{
+    	height:45px;
+    }
+    /*
+		#lecteurAudio .jp-barre-titre{
+    	display:none;	
+    }
+    #lecteurAudio .jp-interface{
+    	padding-top:0px;
+    }
+	  */
+}
+
+

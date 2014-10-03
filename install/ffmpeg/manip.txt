@@ -1,0 +1,86 @@
+
+
+apt-get install ruby1.9.1
+
+gem install waveformjson
+
+waveformjson
+
+
+
+//extraire l'audio d'une video avec FFMPEG
+
+ffmpeg -i input.webm -acodec pcm_s16le -ac 2 audio.wav
+
+source : http://savvyadmin.com/extract-audio-from-video-files-to-wav-using-ffmpeg/
+
+
+
+
+
+
+
+//convertir une video en webm
+
+ffmpeg -i input.mov -acodec libvorbis -ac 2 -ab 96k -ar 44100 -b 345k -s 640x360 output.webm
+
+
+source :  http://paulrouget.com/e/converttohtml5video/
+
+
+
+    OGG/Theora
+
+    ffmpeg -i input.mov -acodec libvorbis -ac 2 -ab 96k -ar 44100 -b 345k -s 640x360 output.ogv
+
+    WebM/vp8
+
+    ffmpeg -i input.mov -acodec libvorbis -ac 2 -ab 96k -ar 44100 -b 345k -s 640x360 output.webm
+
+    MP4/h264
+
+    ffmpeg -i input.mov -acodec libfaac -ab 96k -vcodec libx264 -vpre slower -vpre main -level 21 -refs 2 -b 345k -bt 345k -threads 0 -s 640x360 output.mp4
+
+
+
+
+//convertir de l'audio avec SOX
+
+sox punk.mp3 punk5.ogg
+
+
+//convertir de l'audio avec fmpeg
+
+fmpeg -i "/path/to/source/file.mp3" -f wav "/path/to/output/file.wav"
+
+
+//couper la video avec avidmux
+
+
+
+
+
+
+
+//générer la forme d'onde ::
+
+waveformjson punk.wav punk.json
+
+source : https://github.com/liufengyun/waveformjson
+
+
+puis utiliser Waveform.js pour générer la forme d'ondes en html - canvas
+
+function S_createWaveform(){
+	$j.getJSON('../waveform/punk.json', function(dataJson) {
+		new Waveform({
+		  container: document.getElementById("waveform_img"),
+		  interpolate: true,
+		  height : HAUTEUR_MAX,
+		  innerColor: function(x, y){
+		    return '#FF00FF'
+		  },
+		  data:dataJson
+  	});
+	});
+} 

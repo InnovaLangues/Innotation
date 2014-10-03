@@ -1,0 +1,218 @@
+body {background:#FFFFFF url(http://australianetwork.com/img/body_gradient.gif) repeat-x; text-align:center; font-size:85%; margin:0px; font-family:"Trebuchet MS", Arial, sans-serif;}
+img {border-style:none;}
+form {margin:0px; padding:0px;}
+select {font-size:85%;}
+input {font-family:"Trebuchet MS", Arial, sans-serif; font-size:85%;}
+textarea {font-family:"Trebuchet MS", Arial, sans-serif; font-size:85%;}
+
+a {text-decoration:none;}
+a:hover {text-decoration:underline;}
+a:link {color:#366CAA; text-decoration:none;}
+a:visited {color:#366CAA; text-decoration:none;}
+a:hover {color:#000000; text-decoration:underline;}
+
+#global_bar {height:30px;}
+#nav_global {width:1000px; padding-top:5px; padding-bottom:7px; text-align:right; margin-left:auto; margin-right:auto;}
+#nav_global .item {display:inline; padding:3px; margin-left:5px;}
+
+#brand_bar {background:#FFFFFF url(http://australianetwork.com/img/logo_background.gif) no-repeat; }
+#nav_logo {float:left; margin-top:4px;}
+#nav_logo img {display:block;}
+#nav_tools {float:right; margin:25px 30px 0px 0px;}
+#nav_tools .item {display:inline; padding:0px 10px 0px 10px; font-size:85%; border-left:1px solid #000000;}
+#nav_tools .item a {color:#000000;}
+
+#brand_base {clear:both; background:#000000;}
+#brand_base img {display:block;}
+ 
+#primary_nav_bar {background:#000000; height:29px;}
+#nav_primary {margin:0px 0px 0px 30px; padding-top:6px; padding-bottom:6px;}
+#nav_primary .item {display:inline; padding:3px; margin-right:20px; font-weight:bold;}
+#nav_primary a:link {color:#FFFFFF;}
+#nav_primary a:visited {color:#FFFFFF;}
+#nav_primary a:hover {color:#F1B741; text-decoration:none;}
+#nav_primary a:active {color:#FFFFFF; text-decoration:none;} 
+
+.secondary_nav_bar {background:#666666; height:30px;}
+.nav_secondary {margin:0px 0px 0px 30px; padding-top:6px; padding-bottom:6px;}
+.nav_secondary .item {display:inline; padding:3px; margin-right:20px; font-weight:bold;}
+.nav_secondary a:link {color:#FFFFFF;}
+.nav_secondary a:visited {color:#FFFFFF;}
+.nav_secondary a:hover {color:#F1B741; text-decoration:none;}
+.nav_secondary a:active {color:#FFFFFF; text-decoration:none;} 
+
+
+.tertiary_nav_bar {margin-left:20px;}
+.nav_tertiary {background-color:#EEEEEE;}
+.tertiary_brand {margin-bottom:15px;}
+.tertiary_inner {margin-bottom:15px; background:#F1B741 url(http://australianetwork.com/img/cnr_bottomleft.gif) bottom left no-repeat;}
+.tertiary_head {padding:15px 10px 10px 15px; font-weight:bold; font-size:140%; background:url(http://australianetwork.com/img/cnr_bottomright.gif) bottom right no-repeat;}
+.tertiary_copybox {padding:0px 10px 15px 15px;}
+.tertiary_list {padding:0px 0px 15px 0px;}
+.nav_tertiary .item img {vertical-align:bottom;}
+.nav_tertiary .item {margin:2px 15px 0px 15px; padding:2px 15px 2px 15px; font-size:115%; font-weight:bold; background:#DDDDDD;}
+.nav_tertiary a:link {}
+.nav_tertiary a:visited {}
+.nav_tertiary a:hover {text-decoration:none;}
+.nav_tertiary a:active {text-decoration:none;}
+
+.shadow {position:relative;}
+.shadow_wrap {width:100%; z-index:50; position:absolute; left:0px; top:0px;}
+.fifty {height:1px; overflow:hidden; background:#000000; filter:alpha(opacity=50); opacity:0.5;}
+.thirty {height:1px; overflow:hidden; background:#000000; filter:alpha(opacity=30); opacity:0.3;}
+.twenty {height:1px; overflow:hidden; background:#000000; filter:alpha(opacity=20); opacity:0.2;}
+.ten {height:1px; overflow:hidden; background:#000000; filter:alpha(opacity=10); opacity:0.1;}
+
+
+.button {margin-right:15px; float:right; background:#F1AB00 url(http://australianetwork.com/img/cnr_bottomright.gif) bottom right no-repeat;}
+.button a {text-decoration:none; color:#000000;}
+.button_shell {float:left; background:url(http://australianetwork.com/img/cnr_bottomleft.gif) bottom left no-repeat; cursor:hand;}
+.button_inner  {float:left; background:url(http://australianetwork.com/img/cnr_topleft.gif) top left no-repeat;}
+.button_label {float:left; background:url(http://australianetwork.com/img/cnr_topright.gif) top right no-repeat; padding:3px 8px 3px 8px; font-size:90%; font-weight:bold; }
+.button img {float:left; margin-right:5px;}
+
+
+.sitewidth {width:1000px;}
+.centerme {text-align:left;  margin-left:auto; margin-right:auto;}
+.clearboth {clear:both; height:1px; overflow:hidden;}
+#content_area {background:#FFFFFF;}
+
+#pagelayout_left {width:650px; overflow:hidden; float:left;}
+
+.section {clear:both; margin-left:30px; margin-top:25px; background:#f1b741;}
+.section_shell {width:620px;}
+.section_head {padding:5px 10px 5px 15px; color:#000000; font-weight:bold; background:url(http://australianetwork.com/img/cnr_topright.gif) top right no-repeat;}
+.section_head a {color:#000000;}
+.section_inner {width:620px; background:#EEEEEE url(http://australianetwork.com/img/cnr_bottomleft.gif) bottom left no-repeat;}
+.section_title {padding:5px 10px 0px 15px; font-weight:bold; font-size:120%;}
+.section_title img {float:left; margin-right:5px;}
+.section_image {float:left; margin-right:20px;}
+.section_copybox {padding:5px 15px 5px 15px;}
+.section_list {padding:5px 15px 10px 15px;}
+.section_footer {padding:5px 0px 5px 0px;}
+
+.promo {float:right; margin-left:20px; margin-top:20px; background:#f1b741 url(http://australianetwork.com/img/cnr_bottomleft.gif) bottom left no-repeat;}
+.promo_shell {width:300px;}
+.promo_head {padding:5px 0px 5px 15px; color:#000000; font-weight:bold; background:url(http://australianetwork.com/img/cnr_topright.gif) top right no-repeat;}
+.promo_head a {color:#000000;}
+.promo_inner {width:295px; margin-left:5px; background:#EEEEEE;}
+.promo_title {padding:5px 10px 0px 10px; font-weight:bold; font-size:120%;}
+.promo_title img {float:left; margin-right:5px;}
+.promo_image {float:right; margin-left:15px;}
+.promo_copybox {padding:5px 10px 5px 10px;}
+
+.list {background:#FFFFFF; margin-top:2px;}
+.list_title {padding:5px 10px 0px 15px; font-weight:bold;}
+.list_image {float:left; margin-right:20px;}
+.list_copybox {padding:5px 15px 5px 15px;}
+.list_footer {padding:5px 0px 5px 0px;}
+
+.link_item {margin-top:5px; padding-top:5px; margin-bottom:5px;}
+.link_headline {font-weight:bold;}
+.link_headline img {height:14px; margin-left:3px; vertical-align:bottom;}
+.link_published {color:gray; font-size:85%;}
+.link_description {margin-top:5px; font-size:85%;}
+
+
+#pagelayout_right {width:320px; overflow:hidden; float:left;}
+#page_title {font-size:120%; background:#42B4E6;}
+
+#promo_bar {margin-left:20px; margin-top:10px;}
+#promo_bar .promo_shell {}
+#promo_bar .promo_inner {width:300px; margin-left:0px;}
+#promo_bar .promo_head {display:none;}
+#promo_bar .promo_title {margin-top:10px; padding:5px 0px 0px 10px;}
+#promo_bar .promo_title a {}
+#promo_bar .promo_image {display:block; float:none; margin-left:0px;}
+#promo_bar .promo_copybox {padding:5px 10px 0px 10px;}
+
+.add_300x250 {width:300px; overflow:hidden; margin-top:20px; margin-bottom:20px; color:#AAAAAA; font-size:85%;}
+.add_728x90 {width:728px; overflow:hidden; margin-left:auto; margin-right:auto; margin-top:20px; color:#AAAAAA; font-size:85%;}
+
+#sitemap_bar {background:#D9D6D5 url(http://australianetwork.com/img/sitemap_gradient.gif) repeat-x; margin-top:20px; padding-top:15px; padding-bottom:15px;}
+#sitemap_title {margin-bottom:15px; font-size:120%; font-weight:bold; color:#FF8500; padding-left:30px;}
+#sitemap_tvgu.sitemap_column {padding-left:30px;}
+#sitemap_bar .sitemap_column {float:left; width:140px; margin-right:20px;}
+#sitemap_bar .head {color:#000000; font-size:120%; margin-bottom:5px;}
+#sitemap_bar .item a {}
+
+#foot_bar {padding-top:15px; padding-bottom:15px; text-align:center; }
+#foot_bar .item {display:inline; padding-right:10px; padding-left:10px; border-left:1px solid black;}
+#foot_bar .item a {}
+#foot_bar .first_item {border-left:0px;}
+
+
+.popup {width:520px; text-align:left;  margin-left:auto; margin-right:auto;}
+.popup_shell {}
+.popup_inner {background:#EEEEEE;}
+.popup_head {padding:5px 0px 5px 15px;  background:#11568C; color:#FFFFFF; font-weight:bold;}
+.popup_head img {margin-right:15px; vertical-align:middle;}
+.popup_title {padding:10px 0px 5px 15px; font-weight:bold;}
+.popup_copybox {padding:10px 15px 10px 30px; background:#FFFFFF; font-size:90%;}
+.popup .submit_button {float:right; margin-left:30px;}
+.popup_footer {padding:5px 15px 5px 0px; text-align:center; font-size:90%;}
+.popup_footer a {float:right;}
+
+#flashApp {margin-left:30px; margin-top:20px;}
+
+
+.row0 {background:#FFFFFF;}
+.row1 {background:#FFF1CE;}
+
+#change_location {display:none; float:right; text-align:right; padding-bottom:10px; padding-right:15px; font-size:90%;}
+.sched {display:none; padding:0px 15px 10px 15px;}
+#hongkong {display:block;}
+.plocation {font-weight:bold; font-size:120%;}
+
+#when_to_watch_reveal {width:620px;}
+#when_to_watch_reveal a.pgroup {color:#000000; text-decoration:none;}
+#when_to_watch_reveal .section_inner {padding-bottom:10px;}
+#when_to_watch_reveal .section_copybox {width:620px; padding:10px 0px 5px 0px;}
+#when_to_watch_reveal .plocation {padding:0px 0px 0px 0px;}
+#when_to_watch_reveal .pitem {clear:both; width:590px; margin-top:10px; background:#FFFFFF url(http://australianetwork.com/img/icon_reveal_default.png) 0px 3px no-repeat;}
+#when_to_watch_reveal .plink {float:right; margin:3px 10px 0px 0px;}
+#when_to_watch_reveal .ptitle {padding:5px 0px 5px 25px; color:#366CAA; font-weight:bold;}
+#when_to_watch_reveal .pdetails {clear:both; width:590px; background:#DDDDDD; padding:2px 0px 2px 0px;}
+#when_to_watch_reveal .etitle {width:340px; float:left; margin-left:15px; font-size:90%;}
+#when_to_watch_reveal .pdate {width:220px; float:left; text-align:right; font-size:90%;}
+#when_to_watch_reveal .section_copybox .clearboth {border-bottom:1px solid #FFFFFF;}
+
+#when_to_watch_ordered {width:620px;}
+#when_to_watch_ordered .section_inner {padding-bottom:10px;}
+#when_to_watch_ordered .section_copybox {width:620px; padding:10px 0px 5px 0px;}
+#when_to_watch_ordered .plocation {padding:0px 0px 5px 0px;}
+#when_to_watch_ordered .pdetails {clear:both; width:575px; padding:2px 0px 2px 15px;}
+#when_to_watch_ordered .ptitle {padding:5px 10px 5px 15px; margin-top:5px; color:#F1AB00; background:#FFFFFF; font-weight:bold;}
+#when_to_watch_ordered .etitle {width:340px; float:left; font-size:90%;}
+#when_to_watch_ordered .pdate {width:220px; float:left; text-align:right; font-size:90%;}
+
+#when_to_watch_unordered  {width:620px;}
+#when_to_watch_unordered .section_inner {padding-bottom:10px;}
+#when_to_watch_unordered .section_copybox {width:620px; padding:10px 0px 5px 0px;}
+#when_to_watch_unordered .plocation {padding:0px 0px 10px 0px;}
+#when_to_watch_unordered .pdetails {clear:both; width:575px; padding:2px 0px 2px 15px; font-size:90%;}
+#when_to_watch_unordered .ptitle {width:180px; float:left; font-weight:bold;}
+#when_to_watch_unordered .etitle {width:210px; float:left;}
+#when_to_watch_unordered .pdate {width:155px; text-align:left; float:right; padding:0px 0px 0px 15px;}
+
+
+#promo_tv_highlight {width:620px;}
+#promo_tv_highlight .promo_shell {width:620px;}
+#promo_tv_highlight .promo_inner {width:615px;}
+
+.lightbox_mediatype {vertical-align:top; margin-left:10px; margin-right:5px;}
+.lightbox_close {float:right; margin-right:10px;}
+
+#lightboxOverlay {position:absolute; min-width:1000px; width:100%; z-index:90; left:0px; background:#000000;  filter:alpha(opacity=80); opacity:0.8;}
+#lightboxCenter {position:absolute; min-width:1000px; width:100%;  z-index:100; left:0px; margin-top:22px;}
+#lightbox {margin-left:auto; margin-right:auto;	background-color:#FFFFFF; border-right:2px solid #666666; border-bottom:2px solid #666666;}
+#lightboxTitle {background:#11568C; padding:3px 0px 3px 10px; color:white; font-size:110%; font-weight:bold; text-align:left;} 
+#lightboxImage {margin-top:10px;} 
+#lightboxCaption {font-size:90%; padding:5px 5px 0px 5px;}
+#lightboxKeyboardMsg {color:#585858; font-size:90%; text-align:right; padding:0px 10px 5px 0px;}
+#lightboxKeyboardMsg a {color:#11568C; font-weight:bold;}
+
+
+
+
+.hide_title {visibility:hidden;}

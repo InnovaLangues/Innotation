@@ -1,0 +1,99 @@
+/* 
+  -- Style Ubuntu pour la DOC --
+  http://-STATIC-/css/doc-ubuntu.css
+
+  les '../images' sont en relatif sur http://-STATIC-/images/
+
+  v0.1 - 13/06/2010 - McPeter
+  v0.2 - 07/12/2010 - McPeter & xabilon
+  v0.3 - 12/12/2010 - McPeter
+  v0.4 - 24/03/2011 - McPeter
+*/
+
+/* Liens */
+/* Basique */ 
+#main a.wikilink1, #main a.wikilink2{ color:#C80015; }
+
+body{ background-image:url('../images/commun/ubuntu/ground_body.png'); background-color:#DCC089; }
+
+  #logo{ background-image:url('../images/commun/ubuntu/logo.png'); }
+  #search input[type=text]{ background-image:url('../images/commun/ubuntu/search.png'); }
+
+  /* Section navigation.css */
+  #navigation #active{ 
+    background-image:url('../images/commun/ubuntu/navigation_menu_1.png');
+    background-color:#DEC28A;
+  }
+  #navigation #active .cat a:hover{ color:#C80015; }
+
+  #navigation h2{ background-image:url('../images/commun/ubuntu/navigation_menu_2.png'); }
+
+  /* Hallo */
+  a.title:hover span{ background-image:url('../images/commun/ubuntu/thumb_hover.png'); }
+
+  #main h3 a{ color:#C80015; }
+
+  #main h1{
+    background-image:url('../images/doc/ubuntu/bandeau_h1_haut.png');
+    background-color:#d4b574;
+  }
+  #main h1:after{
+    background-image:url('../images/doc/ubuntu/bandeau_h1_bas.png');
+  }
+  #main h1:before{
+    background-image:url('../images/doc/ubuntu/ruban.png');
+  }
+    #main h1 a{
+
+    }
+
+  #main h2{
+  }
+    #main h2 , #main h3 , #main h4 , #main h5 {
+      color:#C80015;
+    }
+
+  #main h4 a{ font-style:italic; }
+
+/* Menu droit */
+#dw__toc {
+    background: url('../images/commun/ubuntu/ruban_center.png') top left repeat-x #F6F6F6;
+}
+#dw__toc h3.toggle {
+    background:transparent url('../images/commun/ubuntu/ruban_left.png') top left no-repeat;
+}
+
+/* TABLEAUX */
+  .inline tr{
+    background-color:#DEC28A;
+    background-image:url('../images/doc/ubuntu/tableaux_gauche_1px.png');
+  }
+    .inline th{
+      background-color:#DEC28A;
+    }
+    .inline tr:first-child th:first-child{
+      background-image:url('../images/doc/ubuntu/tableaux_haut_gauche.png');
+    }
+    .inline th:last-child{
+      background-image:url('../images/doc/ubuntu/tableaux_droite_1px.png');
+    }
+    .inline tr:first-child th:last-child:before{
+      background-image:url('../images/doc/ubuntu/tableaux_haut_droite.png');
+    }
+
+/* Pluggin Boite par défaut - Couleur au thème Ubuntu */
+div.box .xb1, div.box .xb2, div.box .xb3, div.box .xb4{
+  background-color:rgb(188,154,87); /* #BC9A57  40 54 74 */
+  border-color:rgb(51,45,32); /* #332D20 */
+}
+div.box .xbox{
+  background-color:rgb(188,154,87); /* #BC9A57 */
+  border-color:rgb(51,45,32); /* #332D20 */
+}
+div.box div.xbox .box_title{
+  background-color:rgb(222,194,138); /* #DEC28A */
+}
+div.box div.xbox .box_content{
+  background-color:rgb(255,255,255); /* #FFFFFF */
+}
+

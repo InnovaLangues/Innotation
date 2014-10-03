@@ -1,0 +1,57 @@
+body {background:none; font-size:100%; }
+
+#global_bar {display:none;}
+#nav_tools {display:none;}
+
+.sitewidth {width:300px;}
+
+#primary_nav_bar {height:auto;}
+#nav_primary .item {font-size:70%; padding:5px; margin:5px;}
+
+.secondary_nav_bar {height:auto;}
+.nav_secondary .item {font-size:70%; padding:5px; margin:5px;}
+
+.tertiary_nav_bar {margin-left:0px;}
+
+#pagelayout_left {width:300px; overflow:hidden; float:none;}
+#pagelayout_right {width:300px; overflow:hidden; float:none;}
+
+.add_300x250 {display:none;}
+.add_728x90 {display:none;}
+
+#sitemap_tvgu .sitemap_column {padding-left:0px;}
+#sitemap_bar .sitemap_column {width:110px; margin-right:0px; margin-bottom:5px; padding-left:30px; font-size:80%;}
+
+
+#foot_bar .item {font-size:75%;}
+
+
+.section {margin-left:0px;}
+.section_shell {width:300px;}
+.section_inner {width:300px;}
+
+#promo_bar {margin-left:0px;}
+.promo {float:none; margin-left:0px;}
+.promo_shell {width:300px;}
+.promo_inner {width:295px; margin-left:5px;}
+
+#when_to_watch_program  {width:300px;}
+#when_to_watch_program .section_copybox {width:300px;}
+
+#when_to_watch_program .pdetails {width:245px;}
+#when_to_watch_program .etitle {width:210px;}
+#when_to_watch_program .pdate {width:90px;}
+
+#time_anchors, #az_anchors, #genre_anchors {width:300px;}
+#when_to_watch_schedule .item {display:inline; padding-right:5px; padding-left:5px;}
+#when_to_watch_schedule .last_item {padding-right:5px;}
+
+#when_to_watch_schedule {width:300px;}
+#when_to_watch_schedule .section_copybox {width:300px;}
+#when_to_watch_schedule .pgenre {display:none;}
+
+#promo_tv_highlight {width:300px;}
+#promo_tv_highlight .promo_shell {width:300px;}
+#promo_tv_highlight .promo_inner {width:295px;}
+
+#calendar {margin-left:0px;}
