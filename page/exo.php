@@ -58,9 +58,12 @@ if(isset($_REQUEST['id'])){
       <script type="text/javascript" src="../js/jquery-1.10.1.min.js"></script>
  			<script type="text/javascript" src="../js/jquery-ui.js"></script>
 			<script type="text/javascript" src="../js/jquery.jplayer.min.js"></script>
-			<script type="text/javascript" src="../js/waveform.js"></script>
-			<script type="text/javascript" src="../js/jquery.selection.js"></script>
+                        <script type="text/javascript" src="../js/waveform.js"></script>
+                        <script type="text/javascript" src="../js/jquery.selection.js"></script>
+			<!--
+			
 			<script type="text/javascript" src="../js/jquery.iframe-transport.js"></script>
+                        -->
 			<script type="text/javascript" src="../js/jquery.fileupload.js"></script>
 			<script type="text/javascript">
 				<?php echo ('var NOM_FICHIER = "'.$FICHIER.'";'); ?>
