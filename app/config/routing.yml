@@ -1,3 +1,4 @@
-app:
-    resource: @AppBundle/Controller/
-    type:     annotation
+innova_swans:
+    resource: "@InnovaSwansBundle/Controller/"
+    prefix:   /
+    type: annotation

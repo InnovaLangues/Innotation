@@ -1,0 +1,13 @@
+parameters:
+#    innova_swans.example.class: Innova\SwansBundle\Example
+
+services:
+    innova.exercise.manager:
+        class: Innova\SwansBundle\Manager\ExerciseManager
+        arguments:
+            entityManager: @doctrine.orm.entity_manager
+            kernelRoot: %kernel.root_dir%
+    innova.dictionary.manager:
+        class: Innova\SwansBundle\Manager\DictionaryManager
+        arguments:
+            entityManager: @doctrine.orm.entity_manager

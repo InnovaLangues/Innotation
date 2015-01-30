@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12 text-center">
+            {% if exercise.media.mediaType.name == 'audio' %}                
+                <audio controls src="{{asset('bundles/innovaswans/')}}{{exercise.media.url}}"></audio>
+            {% else %}
+                <video controls src="{{asset('bundles/innovaswans/')}}{{exercise.media.url}}"></video>
+            {% endif %}
+        </div>
+    </div>
+    <hr/>
+    <input type="text" id="type"
+{% endblock %}
+
+{% block javascripts  %}
+    {{parent()}}
+    {% javascripts 
+        '@InnovaSwansBundle/Resources/public/js/wavesurfer/webaudio.js' 
+        '@InnovaSwansBundle/Resources/public/js/wavesurfer/drawer.canvas.js' 
+        '@InnovaSwansBundle/Resources/public/js/wavesurfer/drawer.js' 
+        '@InnovaSwansBundle/Resources/public/js/wavesurfer/wavesurfer.js' 
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %} 

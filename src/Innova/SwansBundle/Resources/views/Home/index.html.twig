@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            {% for flashMessage in app.session.flashbag.get('success') %}
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {% if exercises|length > 0 %}
+                <table class="table table-striped">
+                    <!--
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Nom</th>
+                            <th></th>
+                        </tr>       
+                    </thead>
+                    -->
+                    <tbody>
+                        {% for exercise in exercises %}
+                            <tr>
+                                <td>
+                                    {% if exercise.medias | length == 1 %}
+                                        <a href="{{ path('exercise_play', {'id':exercise.id}) }}" title="Play" class="btn btn-default glyphicon glyphicon-music"></a>
+                                    {% elseif exercise.medias | length == 2 %}
+                                        <a href="{{ path('exercise_play', {'id':exercise.id}) }}" title="Play" class="btn btn-default glyphicon glyphicon-film"></a>
+                                    {% else %}
+                                        <span>no-media</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ exercise.name }}</td>
+                                <td class="text-right">
+                                    <div class="btn-group">
+                                        <a href="{{ path('exercise_play', {'id':exercise.id}) }}" title="Edit" class="btn btn-default glyphicon glyphicon-pencil"></a>
+                                        <a href="{{ path('exercise_delete', {'id':exercise.id}) }}" data-toggle="modal" data-confirm="Sure?" title="Delete" class="btn btn-danger glyphicon glyphicon-trash"></a>                                       
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <h3 class="text-center">No exercises yet! Please use the + button to create a new Exercise!</h3>
+            {% endif %}
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <a href="{{ path('exercise_add') }}" class="btn btn-default glyphicon glyphicon-plus"></a>
+        </div>
+    </div>
+    <hr/>
+
+    <!-- confirm-modal -->
+    <div class="modal fade" id="confirm-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Are you sure ?</h4>
+                </div>
+
+                <div class="modal-body text-right">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                    <a href="#" data-method="POST" id="confirm" class="btn btn-danger danger rest">Supprimer</a>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.modal -->
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('a[data-confirm]').click(function (ev) {
+                var href = $(this).attr('href');
+                $('#confirm').attr('href', href);
+                $('#confirm-modal').modal({show: true});
+                return false;
+            });
+        });
+
+        $('#confirm-modal').on('shown.bs.modal', function (e) {
+            $(".rest").restfulizer();
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_start(form, {'action':path('exercise_add'), 'method':'POST'}) }}
+            {{ form_errors(form) }}
+            <div class="form-group">
+                <label for="name">{{ form_label(form.name, "Name") }}</label>
+                {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.name) }}
+            </div>
+            <div class="form-group">                
+                {{ form_widget(form.medias) }}
+                {{ form_errors(form.medias) }}
+            </div>
+
+            {{ form_row(form.save, {'attr': {'class': 'btn btn-default'}}) }}
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+    <hr/>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    <script type="text/javascript">
+        // a bit of code to create fileupload field
+        $(document).ready(function () {
+            var $container = $('div#exercise_medias');
+            addField($container);
+        });
+
+        function addField($container) {
+            var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, '').replace(/__name__/g, 0));
+            $container.append($prototype);
+
+        }
+    </script>
+{% endblock %}

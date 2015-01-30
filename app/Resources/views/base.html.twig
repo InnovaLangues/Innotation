@@ -2,12 +2,42 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="Innova">
+        <title>{% block title %}Swans{% endblock %}</title>
+        {% block stylesheets %}
+            {% stylesheets 'bundles/innovaswans/css/bootstrap.css' 'bundles/innovaswans/css/swans.css' filter='cssrewrite' %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        <div class="container content-container">
+            <div class="row">
+                <div class="col-md-1">
+                    <a href="{{ path('home') }}">
+                        <img src="{{ asset('bundles/innovaswans/images/logo.png') }}" class="logo">
+                    </a>
+                </div>
+                <div class="col-md-11">
+                    <h1 class="title">SWANS</h1>
+                </div>
+            </div>
+            <hr/>
+            {% block body %} 
+            {% endblock %}
+        </div>
+        {% block javascripts  %}
+            {% javascripts 
+                '@InnovaSwansBundle/Resources/public/js/jquery-1.11.2.js' 
+                '@InnovaSwansBundle/Resources/public/js/bootstrap.js'
+                '@InnovaSwansBundle/Resources/public/js/swans.js' 
+                '@InnovaSwansBundle/Resources/public/js/jquery.restfulizer.js'
+            %}
+            <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %} 
     </body>
 </html>
