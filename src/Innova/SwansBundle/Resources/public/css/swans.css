@@ -1,23 +1,87 @@
-body{
-    
+body {
     background-color: #900000;
     color: #2E4338;
 }
 
-.content-container{
+.content-container {
     padding-top: 15px;
     background-color: white;
+
+    padding-bottom: 15px;
 }
 
-.title{
+.title {
     color:#900000;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-family: 'Open Sans', Arial, sans-serif;
+    text-shadow: 0 0 1px #ffffff, 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-.logo{
-    width:50px;
-    height:50px;
+.logo {
+    width:70px;
+    height:70px;
 }
 
-.table > tbody > tr > td{
+.table > tbody > tr > td {
     vertical-align: middle !important;
+}
+
+#waveform {
+    background-color:#F3EAD1;
+}
+
+/* Hide controls from video when in fullscreen mode (chrome) */
+video::-webkit-media-controls {
+    display:none !important;
+}
+
+video::-webkit-media-controls-enclosure {
+    display:none !important;
+}
+
+.annotation-buttons-container {
+    margin: 15px;
+}
+
+.annotation-button {
+    width:15%;
+}
+
+.blue {
+    background-color: #00A1E5;
+}
+
+.blue:hover, .blue.focus, .blue:focus {
+    background-color: #00A1E5;
+    box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.3);
+}
+
+.red {
+    background-color: #AD0101;
+}
+
+.red:hover, .red.focus, .red:focus {
+    background-color: #AD0101;
+    box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.3);
+}
+
+.orange {
+    background-color: #F1591A;
+}
+.orange:hover, .orange.focus, .orange:focus {
+    background-color: #F1591A;
+    box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.3);
+} 
+
+.black {
+    background-color: black;
+    color:#5A0000;
+}
+
+/*.btn:hover, .btn:focus, .btn.focus*/
+
+.black:hover, .black.focus, .black:focus {
+    background-color: black;
+    box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.3);
 }

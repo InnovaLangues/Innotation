@@ -53,8 +53,15 @@ class Exercise
      */
     private $medias;
     
+     /**
+     * @ORM\OneToMany(targetEntity="Innova\SwansBundle\Entity\Region", mappedBy="exercise")
+     * 
+     */
+    private $regions;
+    
     public function __construct() {
         $this->medias = new ArrayCollection();
+        $this->regions = new ArrayCollection();
     }
 
 
@@ -112,5 +119,20 @@ class Exercise
     
     public function getMedias(){
         return $this->medias;
+    }
+    
+    
+    public function addRegion(Region $region){
+        $this->regions[] = $region;
+        return $this;
+    }
+    
+    public function removeRegion(Region $region){
+        $this->regions->removeElement($region);
+        return $this;
+    }
+    
+    public function getRegions(){
+        return $this->regions;
     }
 }

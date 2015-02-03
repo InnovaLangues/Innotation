@@ -45,7 +45,7 @@ class Region
      /**
      *
      * @var Exercice
-     * @ORM\ManyToOne(targetEntity="Innova\SwansBundle\Entity\Exercise")
+     * @ORM\ManyToOne(targetEntity="Innova\SwansBundle\Entity\Exercise", inversedBy="regions")
      * @ORM\JoinColumn(nullable=false)
      */
     private $exercise;

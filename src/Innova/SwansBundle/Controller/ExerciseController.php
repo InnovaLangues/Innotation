@@ -8,6 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Innova\SwansBundle\Entity\Exercise;
 use Innova\SwansBundle\Form\Type\ExerciseType;
+use Innova\SwansBundle\Exception\SwansException;
+
 /**
  * Description of ExerciseController
  *
@@ -21,7 +23,7 @@ class ExerciseController extends Controller {
      * @ParamConverter("exercise", class="InnovaSwansBundle:Exercise")
      */
     public function playAction(Exercise $exercise) {
-        
+
         // TODO handle edit mode (if user connected => right to edit)
         // will be available later when we will know where to include this bundle
         // for now edit set to true for developpements needs
@@ -29,7 +31,6 @@ class ExerciseController extends Controller {
         return $this->render('InnovaSwansBundle:Exercise:play.html.twig', array('exercise' => $exercise, 'edit' => true));
     }
 
-   
     /**
      * 
      * @Route("/exercise/add", name="exercise_add")
@@ -41,28 +42,29 @@ class ExerciseController extends Controller {
         $dictionary = $this->get('innova.dictionary.manager')->findOneByName('en_en');
         $exercise->setDictionary($dictionary);
         $form = $this->createForm(new ExerciseType(), $exercise);
-        
+
         if ($this->getRequest()->isMethod('POST')) {
             $form->handleRequest($this->getRequest());
             if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($exercise);
-                
-                $type = $this->get('innova.exercise.manager')->getExerciseMediaType($exercise);
-                $exercise->getMedias()[0]->setType($type);
-                // need to flush before extracting audio (otherwise file is not uploaded)
-                $em->flush();
-                
-                if('video' === $type){
-                    $exercise = $this->get('innova.exercise.manager')->extractAudio($exercise);
+
+                try {
+                    // get the main file and handle it
+                    $mainUploadedFile = $this->getRequest()->files->get('file');
+
+                    $manager = $this->get('innova.exercise.manager');
+
+                    $manager->handleExerciseFile($mainUploadedFile, $exercise);
+                    
+                    // flashbag
+                    $this->get('session')->getFlashBag()->set('success', "L'exercice a bien été créé.");
+                    
+                    
+                } catch (SwansException $se) {
+                    $this->get('session')->getFlashBag()->set('error', "Problème lors de la création de l'exercice :: " . $se->getMessage() );
                 }
                 
-                if($this->get('innova.exercise.manager')->save($exercise)){
-                     $this->get('session')->getFlashBag()->set('success', "L'exercice a bien été créé.");
-                };
-                
-
                 return $this->redirect($this->generateUrl('home'));
+                
             }
         }
 
@@ -78,7 +80,7 @@ class ExerciseController extends Controller {
      * @Method({"POST"})
      */
     public function deleteAction(Exercise $exercise) {
-        if($this->get('innova.exercise.manager')->delete($exercise)){
+        if ($this->get('innova.exercise.manager')->delete($exercise)) {
             $this->get('session')->getFlashBag()->set('success', "L'exercice a bien été supprimé.");
         };
         return $this->redirect($this->generateUrl('home'));

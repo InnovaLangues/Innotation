@@ -3,6 +3,7 @@
 namespace Innova\SwansBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -36,9 +37,7 @@ class Media {
      * @ORM\Column(name="type", type="string", length=255)
      */
     private $type;
-    
-    public $file;
-    
+
     public function __construct() {
         $this->exercises = new ArrayCollection();
     }
@@ -80,61 +79,5 @@ class Media {
 
     public function getType() {
         return $this->type;
-    } 
-  
-
-    public function getAbsolutePath() {
-        return null === $this->getUrl() ? null : $this->getUploadRootDir() . '/' . $this->url;
     }
-
-    public function getWebPath() {
-        return null === $this->getUrl() ? null : $this->getUploadDir() . '/' . $this->url;
-    }
-
-    protected function getUploadRootDir() {
-        return __DIR__ . '/../../../../web/' . $this->getUploadDir();
-    }
-
-    protected function getUploadDir() {
-        return 'media/uploads';
-    }
-
-    /**
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
-     */
-    public function preUpload() {
-        //var_dump($this->file);
-        // we need to set the media type automatically
-        if (null !== $this->file) {
-
-            $ext = pathinfo($this->file->getClientOriginalName(), PATHINFO_EXTENSION);
-            // TODO generate a unique human readable name
-            $this->setUrl(sha1(uniqid(mt_rand(), true)) . '.' . $ext);
-        }
-    }
-
-    /**
-     * @ORM\PostPersist()
-     * @ORM\PostUpdate()
-     */
-    public function upload() {
-        if (null === $this->file) {
-            return;
-        }
-
-        $this->file->move($this->getUploadRootDir(), $this->getUrl());
-
-        unset($this->file);
-    }
-
-    /**
-     * @ORM\PostRemove()
-     */
-    public function removeUpload() {
-        if ($file = $this->getAbsolutePath()) {
-            unlink($file);
-        }
-    }
-
 }
