@@ -3,9 +3,10 @@
 namespace Innova\SwansBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Innova\SwansBundle\Entity\Exercise;
 use Innova\SwansBundle\Entity\Media;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Innova\SwansBundle\Entity\Region;
 use Innova\SwansBundle\Exception\SwansException;
 
 /**
@@ -45,6 +46,10 @@ class ExerciseManager {
 
     public function getRepository() {
         return $this->em->getRepository('InnovaSwansBundle:Exercise');
+    }
+    
+    public function addDefaultRegion(Exercise $exercise){
+        $region = new Region();
     }
 
     /**

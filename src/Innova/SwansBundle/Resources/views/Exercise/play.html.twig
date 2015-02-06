@@ -1,101 +1,123 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <!-- toolbar : save exercise - show / hide text - show / hide media(s) - switch media display waveform - video -->
-    <div class="row">
-        <div class="col-md-12 text-right">
-            <button class="btn btn-default glyphicon glyphicon-floppy-disk"></button>
-            <button class="btn btn-default glyphicon glyphicon-align-justify" data-action="toggleText" title="Show/Hide text"></button>
-            <button class="btn btn-default glyphicon glyphicon-eye-open" data-action="toggleMedias" title="Show/Hide medias"></button>
-            <input type="checkbox" name="toggle-media-checkbox" data-on-text="waveform" data-off-text="video" data-off-color="warning" checked>
+    <form role="form" name="edit">
+        <!-- toolbar : save exercise - show / hide text - show / hide media(s) - switch media display waveform - video -->
+        <div class="row">
+            <div class="col-md-8">
+                <p class="exercise-title">titre : {{exercise.name}}</p>
+            </div>
+            <div class="col-md-4 text-right">
+                {% if edit %}
+                    <button type="submit" class="btn btn-default glyphicon glyphicon-floppy-disk"></button>
+                {% endif %}
+                <button type="button" class="btn btn-default glyphicon glyphicon-align-justify" data-action="toggleText" title="Show/Hide text"></button>
+                <button type="button" class="btn btn-default glyphicon glyphicon-eye-open" data-action="toggleMedias" title="Show/Hide medias"></button>
+                <input type="checkbox" name="toggle-media-checkbox" data-on-text="waveform" data-off-text="video" data-off-color="warning" checked>
+            </div>
         </div>
-    </div>
-    <!-- waveform OR video -->
-    <hr/>
-    <div class="row">
-        <div class="col-md-12">
-            <!-- in any case the default view is the waveform -->
-            <!-- create video player only if needed -->
-            {% if exercise.medias[0].type == 'video' %}
-                <div style="width:100%;text-align: center">
-                    <video id="video-player" style="display: none;" src="{{asset('media/uploads/')}}{{exercise.medias[0].url}}"></video>
-                </div>
-            {% endif %}
-            <div id="audio-player">
-                <div id="wave-timeline"></div>
-                <div id="waveform">
-                    <div class="progress progress-striped active" id="progress-bar">
-                        <div class="progress-bar progress-bar-info"></div>
+        <!-- waveform OR video -->
+        <hr/>
+        <div class="row">
+            <div class="col-md-12">
+                <!-- in any case the default view is the waveform -->
+                <!-- create video player only if needed -->
+                {% if exercise.medias[0].type == 'video' %}
+                    <div style="width:100%;text-align: center">
+                        <video id="video-player" style="display: none;" src="{{asset('media/uploads/')}}{{exercise.medias[0].url}}"></video>
+                    </div>
+                {% endif %}
+                <div id="audio-player">
+                    <div id="wave-timeline"></div>
+                    <div id="waveform">
+                        <div class="progress progress-striped active" id="progress-bar">
+                            <div class="progress-bar progress-bar-info"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <hr/>
-    <!-- media controls -->
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <button class="btn btn-default glyphicon glyphicon-step-backward" data-action="backward" title="Move backward">
-            </button>
-            <button class="btn btn-default" data-action="play" title="Play / Pause">
-                <i class="glyphicon glyphicon-play"></i>
-                /
-                <i class="glyphicon glyphicon-pause"></i>
-            </button>
-            <button class="btn btn-default glyphicon glyphicon-step-forward" data-action="forward" title="Move forward">
-            </button>
-            <button id="full-screen" style="display: none;" class="btn btn-default glyphicon glyphicon-fullscreen" title="Fullscreen" data-action="fullscreen">
-            </button>
-            <button id="full-screen" class="btn btn-danger glyphicon glyphicon-flag" data-action="mark">
-            </button> 
+        <hr/>
+        <!-- media controls -->
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <button type="button" role="button" class="btn btn-default glyphicon glyphicon-step-backward" data-action="backward" title="Move backward">
+                </button>
+                <button type="button" class="btn btn-default" data-action="play" title="Play / Pause">
+                    <i class="glyphicon glyphicon-play"></i>
+                    /
+                    <i class="glyphicon glyphicon-pause"></i>
+                </button>
+                <button type="button" class="btn btn-default glyphicon glyphicon-step-forward" data-action="forward" title="Move forward">
+                </button>
+                <button type="button" id="full-screen" style="display: none;" class="btn btn-default glyphicon glyphicon-fullscreen" title="Fullscreen" data-action="fullscreen">
+                </button>
+                {% if edit %}
+                    <button type="button" id="full-screen" class="btn btn-danger glyphicon glyphicon-flag" data-action="mark">
+                    </button> 
+                {% endif %}
+            </div>
         </div>
-    </div>
-    <hr/>
-    <!-- segments -->
-    <div class="row">
-        <div class="col-md-12">
-            {% if exercise.regions|length > 0 %}
-                {% for r in exercise.regions %}
-                    <div class="row">
-                        <div class="col-md-1">
-                            <span>r.beginning</span>
-                        </div>
-                        <div class="col-md-1">
-                            <span>r.end</span>
-                        </div>
-                        <div class="col-md-9">
-                            <span>r.annotated_text</span>
-                        </div>
-                        <div class="col-md-1">del</div>
-                    </div>
-                {% endfor %}
-            {% else %}
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <span>no region</span>
-                    </div>
-                </div>
-            {% endif %}
+        <hr/>
+        <!-- segments -->
+        <div class="row">
+            <div class="col-md-12 text-center segments-container">               
+                {% if exercise.regions | length > 0 %}
+                    {% for region in exercise.regions %}
+                        {% if edit %}
+                            <div class="row form-row region">
+                                <div class="col-xs-1">
+                                    <input type="text" name="start" class="form-control" value="{{ region.start }}" required="required">
+                                </div>
+                                <div class="col-xs-1">
+                                    <input type="text" name="end" class="form-control" value="{{ region.end }}" required="required">
+                                </div>
+                                <div class="col-xs-9">
+                                    <input type="text" name="note" class="form-control" value="{{ region.note }}">
+                                </div>
+                                <div class="col-xs-1">
+                                    <button role="button" type="button" class="btn btn-danger glyphicon glyphicon-trash" id="delete-region" onclick="deleteRegion(this)"></button>
+                                    <input type="hidden" id="id" name="id" value="{{ region.id }}">
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="row region-play-row">
+                                <div class="col-xs-1">
+                                    <label>{{ region.start }}</label>
+                                </div>
+                                <div class="col-xs-11">
+                                    <label>{{ region.note }}</label>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}                
+                {% endif %}
+            </div>
         </div>
-    </div>
-<hr/>
+    </form>
+    {% if edit %}
+    <hr/>
     <!-- annotation buttons -->
     <div class="row">
         <div class="col-md-12">
             <input type="checkbox" name="toggle-annotation-checkbox" data-on-text="hide" data-off-text="show" data-off-color="warning" checked>
-          <hr/>
+            <hr/>
             <div class="annotation-buttons-container text-center">
-                <button class="btn annotation-button blue" title="Accent primaire" data-color="blue" data-action="annotate">&nbsp;</button>
-                <button class="btn annotation-button red" title="Accent secondaire" data-color="red" data-action="annotate">&nbsp;</button>
-                <button class="btn annotation-button orange" title="Voyelle faible" data-color="orange" data-action="annotate">&nbsp;</button>
-                <button class="btn annotation-button black" title="Texte normale" data-color="black"  data-action="annotate">&nbsp;</button>
-                <button class="btn annotation-button" title="Annotation automatique" data-color="none" data-action="annotate">AUTO</button>
+                <button type="button" class="btn annotation-button blue" title="Accent primaire" data-color="blue" data-action="annotate">&nbsp;</button>
+                <button type="button" class="btn annotation-button red" title="Accent secondaire" data-color="red" data-action="annotate">&nbsp;</button>
+                <button type="button" class="btn annotation-button orange" title="Voyelle faible" data-color="orange" data-action="annotate">&nbsp;</button>
+                <button type="button" class="btn annotation-button black" title="Texte normale" data-color="black"  data-action="annotate">&nbsp;</button>
+                <button type="button" class="btn annotation-button" title="Annotation automatique" data-color="none" data-action="annotate">AUTO</button>
             </div>
         </div>
     </div>
+    {% endif %}
+
+
 
     <!-- hidden fields -->
+    <input type="hidden" name="editing" value="{{edit ? 1:0}}">
     {% if exercise.medias | length == 1 %} 
         <input type="hidden" name="type" value="audio">
         <input type="hidden" name="audio-url" value="{{asset('media/uploads/')}}{{exercise.medias[0].url}}">
@@ -115,7 +137,7 @@
         '@InnovaSwansBundle/Resources/public/js/wavesurfer/drawer.canvas.js'
         '@InnovaSwansBundle/Resources/public/js/wavesurfer/plugins/wavesurfer.timeline.js'
         '@InnovaSwansBundle/Resources/public/js/wavesurfer/plugins/wavesurfer.regions.js'
-'@InnovaSwansBundle/Resources/public/js/wavesurfer/plugins/wavesurfer.minimap.js'
+        '@InnovaSwansBundle/Resources/public/js/wavesurfer/plugins/wavesurfer.minimap.js'
         '@InnovaSwansBundle/Resources/public/js/play.js' 
         
     %}

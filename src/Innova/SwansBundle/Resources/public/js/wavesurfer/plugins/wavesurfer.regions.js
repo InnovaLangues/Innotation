@@ -9,7 +9,6 @@ WaveSurfer.Regions = {
         /* Id-based hash of regions. */
         this.list = {};
     },
-
     /* Remove a region. */
     add: function (params) {
         var region = Object.create(WaveSurfer.Region);
@@ -23,14 +22,12 @@ WaveSurfer.Regions = {
 
         return region;
     },
-
     /* Remove all regions. */
     clear: function () {
         Object.keys(this.list).forEach(function (id) {
             this.list[id].remove();
         }, this);
     },
-
     enableDragSelection: function (params) {
         var my = this;
         var drag;
@@ -42,12 +39,14 @@ WaveSurfer.Regions = {
             start = my.wavesurfer.drawer.handleEvent(e);
             region = null;
         });
-        this.wrapper.addEventListener('mouseup', function () {
+        this.wrapper.addEventListener('mouseup', function (e) {
             drag = false;
             region = null;
         });
         this.wrapper.addEventListener('mousemove', function (e) {
-            if (!drag) { return; }
+            if (!drag) {
+                return;
+            }
 
             if (!region) {
                 region = my.add(params || {});
@@ -66,7 +65,6 @@ WaveSurfer.Regions = {
 WaveSurfer.Region = {
     /* Helper function to assign CSS styles. */
     style: WaveSurfer.Drawer.style,
-
     init: function (params, wavesurfer) {
         this.wavesurfer = wavesurfer;
         this.wrapper = wavesurfer.drawer.wrapper;
@@ -74,13 +72,21 @@ WaveSurfer.Region = {
         this.id = params.id == null ? WaveSurfer.util.getId() : params.id;
         this.start = Number(params.start) || 0;
         this.end = params.end == null ?
-            // small marker-like region
-            this.start + (4 / this.wrapper.scrollWidth) * this.wavesurfer.getDuration() :
-            Number(params.end);
+                // small marker-like region
+                this.start + (4 / this.wrapper.scrollWidth) * this.wavesurfer.getDuration() :
+                Number(params.end);
         this.resize = params.resize === undefined ? true : Boolean(params.resize);
         this.drag = params.drag === undefined ? true : Boolean(params.drag);
         this.loop = Boolean(params.loop);
         this.color = params.color || 'rgba(0, 0, 0, 0.1)';
+
+        // resizable regions css params
+        this.resizeHandlerWidth = params.resizeHandlerWidth ? params.resizeHandlerWidth : '1%';
+        this.resizeHandlerMaxWidth = params.resizeHandlerMaxWidth ? params.resizeHandlerMaxWidth : '2px';
+        this.resizeHandlerColor = params.resizeHandlerColor ? params.resizeHandlerColor : '#000000';
+        this.showStartHandler = params.showStartHandler === undefined ? true : false;
+        this.showEndHandler = params.showEndHandler === undefined ? true : false;
+
         this.data = params.data || {};
 
         this.bindInOut();
@@ -88,7 +94,6 @@ WaveSurfer.Region = {
 
         this.wavesurfer.fireEvent('region-created', this);
     },
-
     /* Update region params. */
     update: function (params) {
         if (null != params.start) {
@@ -116,7 +121,6 @@ WaveSurfer.Region = {
         this.fireEvent('update');
         this.wavesurfer.fireEvent('region-updated', this);
     },
-
     /* Remove a single region. */
     remove: function (region) {
         if (this.element) {
@@ -126,20 +130,17 @@ WaveSurfer.Region = {
             this.wavesurfer.fireEvent('region-removed', this);
         }
     },
-
     /* Play the audio region. */
     play: function () {
         this.wavesurfer.play(this.start, this.end);
         this.fireEvent('play');
         this.wavesurfer.fireEvent('region-play', this);
     },
-
     /* Play the region in loop. */
     playLoop: function () {
         this.play();
         this.once('out', this.playLoop.bind(this));
     },
-
     /* Render a region as a DOM element. */
     render: function () {
         var regionEl = document.createElement('region');
@@ -157,52 +158,57 @@ WaveSurfer.Region = {
 
         /* Resize handles */
         if (this.resize) {
-            var handleLeft = regionEl.appendChild(document.createElement('handle'));
-            var handleRight = regionEl.appendChild(document.createElement('handle'));
-            handleLeft.className = 'wavesurfer-handle wavesurfer-handle-start';
-            handleRight.className = 'wavesurfer-handle wavesurfer-handle-end';
             var css = {
                 cursor: 'col-resize',
                 position: 'absolute',
                 left: '0px',
                 top: '0px',
-                width: '1%',
-                maxWidth: '4px',
-                height: '100%'
+                width: this.resizeHandlerWidth,
+                maxWidth: this.resizeHandlerMaxWidth,
+                height: '100%',
+                backgroundColor: this.resizeHandlerColor
             };
-            this.style(handleLeft, css);
-            this.style(handleRight, css);
-            this.style(handleRight, {
-                left: '100%'
-            });
+            // want to see every starting handler except the first one (don't want the user to move it)
+            // if (this.showStartHandler) {
+            if (this.showStartHandler && this.start > 0) {
+                var handleLeft = regionEl.appendChild(document.createElement('handle'));
+                handleLeft.className = 'wavesurfer-handle wavesurfer-handle-start';
+                this.style(handleLeft, css);
+            }
+            if (this.showEndHandler) {
+                var handleRight = regionEl.appendChild(document.createElement('handle'));
+                handleRight.className = 'wavesurfer-handle wavesurfer-handle-end';
+                this.style(handleRight, css);
+                this.style(handleRight, {
+                    left: '100%'
+                });
+            }
         }
 
         this.element = this.wrapper.appendChild(regionEl);
         this.updateRender();
         this.bindEvents(regionEl);
     },
-
     formatTime: function (start, end) {
-        return (end ? [ start, end ] : [ start ]).map(function (time) {
+        return (end ? [start, end] : [start]).map(function (time) {
             return [
                 Math.floor((time % 3600) / 60), // minutes
                 ('00' + Math.floor(time % 60)).slice(-2) // seconds
             ].join(':');
         }).join('–');
     },
-
     /* Update element's position, width, color. */
     updateRender: function () {
         var dur = this.wavesurfer.getDuration();
         var width = this.wrapper.scrollWidth;
         var seconds = this.end - this.start;
         if (this.start < 0) {
-          this.start = 0;
-          this.end = seconds;
+            this.start = 0;
+            this.end = seconds;
         }
         if (this.end > dur) {
-          this.end = dur;
-          this.start = dur - seconds;
+            this.end = dur;
+            this.start = dur - seconds;
         }
         this.style(this.element, {
             left: ~~(this.start / dur * width) + 'px',
@@ -211,7 +217,6 @@ WaveSurfer.Region = {
         });
         this.element.title = this.formatTime(this.start, this.end);
     },
-
     /* Bind audio events. */
     bindInOut: function () {
         var my = this;
@@ -249,7 +254,6 @@ WaveSurfer.Region = {
             }
         });
     },
-
     /* Bind DOM events. */
     bindEvents: function () {
         var my = this;
@@ -276,6 +280,13 @@ WaveSurfer.Region = {
             my.fireEvent('dblclick', e);
             my.wavesurfer.fireEvent('region-dblclick', my, e);
         });
+        
+        this.element.addEventListener('resize-start', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            my.fireEvent('resize-start', e);
+            my.wavesurfer.fireEvent('region-resize-start', my, e);
+        });
 
         /* Drag or resize on mousemove. */
         (this.drag || this.resize) && (function () {
@@ -284,6 +295,7 @@ WaveSurfer.Region = {
             var resize;
             var startTime;
 
+
             var onDown = function (e) {
                 e.stopPropagation();
                 startTime = my.wavesurfer.drawer.handleEvent(e) * duration;
@@ -291,9 +303,13 @@ WaveSurfer.Region = {
                 if (e.target.tagName.toLowerCase() == 'handle') {
                     if (e.target.classList.contains('wavesurfer-handle-start')) {
                         resize = 'start';
+                        
                     } else {
                         resize = 'end';
                     }
+                    my.fireEvent('resize-start', e);
+                    my.wavesurfer.fireEvent('region-resize-start', my, e);
+                    
                 } else {
                     drag = true;
                 }
@@ -305,8 +321,8 @@ WaveSurfer.Region = {
                     e.stopPropagation();
                     e.preventDefault();
 
-                    my.fireEvent('update-end');
-                    my.wavesurfer.fireEvent('region-update-end');
+                    my.fireEvent('update-end', e);
+                    my.wavesurfer.fireEvent('region-update-end', my, e);
                 }
             };
             var onMove = function (e) {
@@ -322,7 +338,7 @@ WaveSurfer.Region = {
 
                     // Resize
                     if (my.resize && resize) {
-                        my.onResize(delta, resize);
+                        my.onResize(delta, resize, e);
                     }
                 }
             };
@@ -337,25 +353,28 @@ WaveSurfer.Region = {
             });
         }());
     },
-
     onDrag: function (delta) {
         this.update({
             start: this.start + delta,
             end: this.end + delta
         });
-    },
 
-    onResize: function (delta, direction) {
-        if (direction == 'start') {
-            this.update({
-                start: Math.min(this.start + delta, this.end),
-                end: Math.max(this.start + delta, this.end)
-            });
-        } else {
-            this.update({
-                start: Math.min(this.end + delta, this.start),
-                end: Math.max(this.end + delta, this.start)
-            });
+    },
+    onResize: function (delta, direction, e) {
+        // avoid dragging the first handler
+        if (this.start > 0) {
+            if (direction == 'start') {
+                this.update({
+                    start: Math.min(this.start + delta, this.end),
+                    end: Math.max(this.start + delta, this.end)
+                });
+            } else {
+                this.update({
+                    start: Math.min(this.end + delta, this.start),
+                    end: Math.max(this.end + delta, this.start)
+                });
+            }
+            this.wavesurfer.fireEvent('region-resize', this, e);
         }
     }
 };

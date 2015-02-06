@@ -23,12 +23,29 @@ class ExerciseController extends Controller {
      * @ParamConverter("exercise", class="InnovaSwansBundle:Exercise")
      */
     public function playAction(Exercise $exercise) {
+        if ($exercise->getId()) {
+            return $this->render('InnovaSwansBundle:Exercise:play.html.twig', array('exercise' => $exercise, 'edit' => false));
+        }
+        else{
+            $this->get('session')->getFlashBag()->set('error', "Aucun exercice trouvé.");
+             return $this->redirect($this->generateUrl('home'));
+        }
+    }
 
-        // TODO handle edit mode (if user connected => right to edit)
-        // will be available later when we will know where to include this bundle
-        // for now edit set to true for developpements needs
+    /**
+     * Play or edit the exercise
+     * @Route("/exercise/edit/{id}", requirements={"id" = "\d+"}, name="exercise_edit")
+     * @ParamConverter("exercise", class="InnovaSwansBundle:Exercise")
+     */
+    public function editAction(Exercise $exercise) {
 
-        return $this->render('InnovaSwansBundle:Exercise:play.html.twig', array('exercise' => $exercise, 'edit' => true));
+        if ($exercise->getId()) {
+            return $this->render('InnovaSwansBundle:Exercise:play.html.twig', array('exercise' => $exercise, 'edit' => true));
+        }
+        else{
+            $this->get('session')->getFlashBag()->set('error', "Aucun exercice trouvé.");
+             return $this->redirect($this->generateUrl('home'));
+        }
     }
 
     /**
@@ -53,18 +70,17 @@ class ExerciseController extends Controller {
 
                     $manager = $this->get('innova.exercise.manager');
 
+                    // this method also persist and flush the exercise
                     $manager->handleExerciseFile($mainUploadedFile, $exercise);
-                    
+
+
                     // flashbag
                     $this->get('session')->getFlashBag()->set('success', "L'exercice a bien été créé.");
-                    
-                    
                 } catch (SwansException $se) {
-                    $this->get('session')->getFlashBag()->set('error', "Problème lors de la création de l'exercice :: " . $se->getMessage() );
+                    $this->get('session')->getFlashBag()->set('error', "Problème lors de la création de l'exercice :: " . $se->getMessage());
                 }
-                
+
                 return $this->redirect($this->generateUrl('home'));
-                
             }
         }
 

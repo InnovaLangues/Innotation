@@ -79,5 +79,6 @@ class Media {
 
     public function getType() {
         return $this->type;
-    }
+    }   
+
 }

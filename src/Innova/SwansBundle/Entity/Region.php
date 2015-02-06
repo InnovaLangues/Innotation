@@ -24,9 +24,9 @@ class Region
     /**
      * @var float
      *
-     * @ORM\Column(name="beginning", type="float")
+     * @ORM\Column(name="start", type="float")
      */
-    private $beginning;
+    private $start;
 
     /**
      * @var float
@@ -38,9 +38,9 @@ class Region
     /**
      * @var string
      *
-     * @ORM\Column(name="annotated_text", type="text")
+     * @ORM\Column(name="note", type="text")
      */
-    private $annotatedText;
+    private $note;
     
      /**
      *
@@ -48,7 +48,8 @@ class Region
      * @ORM\ManyToOne(targetEntity="Innova\SwansBundle\Entity\Exercise", inversedBy="regions")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $exercise;
+    private $exercise;   
+   
 
 
     /**
@@ -62,26 +63,26 @@ class Region
     }
 
     /**
-     * Set beginning
+     * Set start of the region
      *
-     * @param float $beginning
+     * @param float $start
      * @return Region
      */
-    public function setBeginning($beginning)
+    public function setStart($start)
     {
-        $this->beginning = $beginning;
+        $this->start = $start;
 
         return $this;
     }
 
     /**
-     * Get beginning
+     * Get start
      *
      * @return float 
      */
-    public function getBeginning()
+    public function getStart()
     {
-        return $this->beginning;
+        return $this->start;
     }
 
     /**
@@ -108,26 +109,26 @@ class Region
     }
 
     /**
-     * Set annotatedText
+     * Set note
      *
-     * @param string $annotatedText
+     * @param string $note
      * @return Region
      */
-    public function setAnnotatedText($annotatedText)
+    public function setNote($note)
     {
-        $this->annotatedText = $annotatedText;
+        $this->note = $note;
 
         return $this;
     }
 
     /**
-     * Get annotatedText
+     * Get note
      *
      * @return string 
      */
-    public function getAnnotatedText()
+    public function getNote()
     {
-        return $this->annotatedText;
+        return $this->note;
     }
     
     public function setExercise(Exercise $ex){
