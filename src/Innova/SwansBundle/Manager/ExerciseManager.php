@@ -6,7 +6,6 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Innova\SwansBundle\Entity\Exercise;
 use Innova\SwansBundle\Entity\Media;
-use Innova\SwansBundle\Entity\Region;
 use Innova\SwansBundle\Exception\SwansException;
 
 /**
@@ -47,9 +46,17 @@ class ExerciseManager {
     public function getRepository() {
         return $this->em->getRepository('InnovaSwansBundle:Exercise');
     }
-    
-    public function addDefaultRegion(Exercise $exercise){
-        $region = new Region();
+
+    /**
+     * Update an exercise (title)
+     * @param Exercise $exercice
+     * @param string $name exercise name
+     */
+    public function updateExerciseName(Exercise $exercice, $name) {
+        if ($exercice->getName() != $name) {
+            $exercice->setName($name);
+        }
+        return $this->save($exercice);
     }
 
     /**
@@ -65,7 +72,7 @@ class ExerciseManager {
         $type = $this->getExerciseMediaType($originalName);
 
         // set new filename
-        $name = $this->setName($file);
+        $name = $this->setFileName($file);
 
         // upload file
         if ($this->upload($file, $name)) {
@@ -107,7 +114,6 @@ class ExerciseManager {
             }
 
             $this->em->flush();
-            
         } else {
             throw new SwansException(
             SwansException::SWANS_EXCEPTION_ERROR_UPLOAD_MESSAGE, SwansException::SWANS_EXCEPTION_ERROR_UPLOAD_CODE
@@ -120,7 +126,7 @@ class ExerciseManager {
      * @param UploadedFile $file
      * @return string the new name
      */
-    public function setName(UploadedFile $file) {
+    public function setFileName(UploadedFile $file) {
         if (null !== $file) {
             $ext = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
             return sha1(uniqid(mt_rand(), true)) . '.' . $ext;

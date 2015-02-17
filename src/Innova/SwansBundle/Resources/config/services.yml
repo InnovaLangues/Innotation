@@ -11,3 +11,12 @@ services:
         class: Innova\SwansBundle\Manager\DictionaryManager
         arguments:
             entityManager: @doctrine.orm.entity_manager
+    innova.annotation.manager:
+        class: Innova\SwansBundle\Manager\AnnotationManager
+        arguments:
+            entityManager: @doctrine.orm.entity_manager
+    innova.region.manager:
+        class: Innova\SwansBundle\Manager\RegionManager
+        arguments:
+            entityManager: @doctrine.orm.entity_manager
+    

@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
  * DictionaryEntry
  *
  * @ORM\Table()
- * @ORM\Entity
+ *  * @ORM\Entity(repositoryClass="Innova\SwansBundle\Repository\DictionaryEntryRepository")
  */
-class DictionaryEntry
+class DictionaryEntry implements \JsonSerializable
 {
     /**
      * @var integer
@@ -188,4 +188,12 @@ class DictionaryEntry
     {
         return $this->nbSyll;
     }  
+    
+    public function jsonSerialize()
+    {
+        return array (
+            'id' => $this->id,
+            'word' => $this->word,
+        );
+    }
 }

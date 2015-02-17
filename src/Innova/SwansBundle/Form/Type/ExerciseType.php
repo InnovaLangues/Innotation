@@ -4,7 +4,7 @@ namespace Innova\SwansBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Innova\SwansBundle\Form\Type\MediaType;
+// use Innova\SwansBundle\Form\Type\MediaType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 /**
  * Description of ExerciseType

@@ -1,24 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <form role="form" name="edit">
+{% block body %}    
+
+    <form role="form" enctype="multipart/form-data"  method="post" {% if edit %} action="{{path('exercise_edit', {'id':exercise.id})}}"  {% endif %} name="edit">
+
         <!-- toolbar : save exercise - show / hide text - show / hide media(s) - switch media display waveform - video -->
         <div class="row">
-            <div class="col-md-8">
-                <p class="exercise-title">titre : {{exercise.name}}</p>
-            </div>
-            <div class="col-md-4 text-right">
+            <div class="col-md-6">
+                <div {% if edit %} contenteditable="true" {% endif %} class="exercise-title">{{exercise.name}}</div>
                 {% if edit %}
-                    <button type="submit" class="btn btn-default glyphicon glyphicon-floppy-disk"></button>
+                    <input type="hidden" name="title" value="{{exercise.name}}" />
+                {% endif %} 
+            </div>
+            <div class="col-md-6 text-right">
+                {% if edit %}
+                    <button type="submit" class="btn btn-default glyphicon glyphicon-floppy-disk" title="Save"></button>
+                    <button type="button" class="btn btn-default glyphicon glyphicon-print" data-action="print" title="Print"></button>
+                    <button type="button" class="btn btn-default glyphicon glyphicon-export" data-action="export" title="Export"></button>
                 {% endif %}
                 <button type="button" class="btn btn-default glyphicon glyphicon-align-justify" data-action="toggleText" title="Show/Hide text"></button>
                 <button type="button" class="btn btn-default glyphicon glyphicon-eye-open" data-action="toggleMedias" title="Show/Hide medias"></button>
-                <input type="checkbox" name="toggle-media-checkbox" data-on-text="waveform" data-off-text="video" data-off-color="warning" checked>
+                <span id="toggle-media-switch-container">
+                    <input type="checkbox" id="toggle-media-type" name="toggle-media-checkbox" data-on-text="waveform" data-off-text="video" data-off-color="warning" checked>
+                </span>
             </div>
         </div>
         <!-- waveform OR video -->
         <hr/>
-        <div class="row">
+        <div class="row media-container">
             <div class="col-md-12">
                 <!-- in any case the default view is the waveform -->
                 <!-- create video player only if needed -->
@@ -62,62 +71,60 @@
         <hr/>
         <!-- segments -->
         <div class="row">
-            <div class="col-md-12 text-center segments-container">               
-                {% if exercise.regions | length > 0 %}
-                    {% for region in exercise.regions %}
-                        {% if edit %}
-                            <div class="row form-row region">
-                                <div class="col-xs-1">
-                                    <input type="text" name="start" class="form-control" value="{{ region.start }}" required="required">
-                                </div>
-                                <div class="col-xs-1">
-                                    <input type="text" name="end" class="form-control" value="{{ region.end }}" required="required">
-                                </div>
-                                <div class="col-xs-9">
-                                    <input type="text" name="note" class="form-control" value="{{ region.note }}">
-                                </div>
-                                <div class="col-xs-1">
-                                    <button role="button" type="button" class="btn btn-danger glyphicon glyphicon-trash" id="delete-region" onclick="deleteRegion(this)"></button>
-                                    <input type="hidden" id="id" name="id" value="{{ region.id }}">
-                                </div>
+            <div class="col-md-12 text-center regions-container">               
+                {% if regions | length > 0 %}
+                    {% for region in regions %}
+                        <div class="row form-row region">
+                            <div class="col-xs-1">                                    
+                                <div class="time-text start">{{ region.start }}</div>
                             </div>
-                        {% else %}
-                            <div class="row region-play-row">
-                                <div class="col-xs-1">
-                                    <label>{{ region.start }}</label>
-                                </div>
-                                <div class="col-xs-11">
-                                    <label>{{ region.note }}</label>
-                                </div>
+                            <div class="col-xs-1">
+                                <div class="time-text end">{{ region.end }}</div>
                             </div>
-                        {% endif %}
+                            <div class="{% if edit %}col-xs-9{% else %}col-xs-10{% endif %}">
+                                <div contenteditable="true" class="text-left note">{{ region.note | raw }}</div>
+                            </div>
+                            {% if edit %}
+                                <div class="col-xs-1">
+                                    <button role="button" type="button" class="btn btn-danger glyphicon glyphicon-trash" onclick="deleteRegion(this);"></button>
+                                </div>
+                            {% endif %}                            
+                            <input type="hidden" class="hidden-start" name="start[]" value="{{ region.start }}" required="required">
+                            <input type="hidden" class="hidden-end" name="end[]" value="{{ region.end }}" required="required">
+                            <input type="hidden" class="hidden-note" name="note[]" value="{{ region.note }}">
+                            <input type="hidden" class="hidden-region-id" name="region-id[]" value="{{ region.id }}">
+
+                        </div>
                     {% endfor %}                
                 {% endif %}
             </div>
         </div>
     </form>
+
     {% if edit %}
-    <hr/>
-    <!-- annotation buttons -->
-    <div class="row">
-        <div class="col-md-12">
-            <input type="checkbox" name="toggle-annotation-checkbox" data-on-text="hide" data-off-text="show" data-off-color="warning" checked>
-            <hr/>
-            <div class="annotation-buttons-container text-center">
-                <button type="button" class="btn annotation-button blue" title="Accent primaire" data-color="blue" data-action="annotate">&nbsp;</button>
-                <button type="button" class="btn annotation-button red" title="Accent secondaire" data-color="red" data-action="annotate">&nbsp;</button>
-                <button type="button" class="btn annotation-button orange" title="Voyelle faible" data-color="orange" data-action="annotate">&nbsp;</button>
-                <button type="button" class="btn annotation-button black" title="Texte normale" data-color="black"  data-action="annotate">&nbsp;</button>
-                <button type="button" class="btn annotation-button" title="Annotation automatique" data-color="none" data-action="annotate">AUTO</button>
+        <hr/>
+        <!-- annotation buttons -->
+        <div class="row">
+            <div class="col-md-12">
+                <input type="checkbox" name="toggle-annotation-checkbox" data-on-text="hide" data-off-text="show" data-off-color="warning" checked>
+                <hr/>
+                <div class="annotation-buttons-container text-center">
+                    <button type="button" class="btn annotation-button blue" title="Accent primaire" data-color="blue" data-action="annotate">&nbsp;</button>
+                    <button type="button" class="btn annotation-button red" title="Accent secondaire" data-color="red" data-action="annotate">&nbsp;</button>
+                    <button type="button" class="btn annotation-button orange" title="Voyelle faible" data-color="orange" data-action="annotate">&nbsp;</button>
+                    <button type="button" class="btn annotation-button black" title="Texte normale" data-color="black"  data-action="annotate">&nbsp;</button>
+                    <button type="button" class="btn annotation-button" title="Annotation automatique" data-color="none"  data-action="annotate">AUTO</button>
+                </div>
             </div>
         </div>
-    </div>
     {% endif %}
-
-
 
     <!-- hidden fields -->
     <input type="hidden" name="editing" value="{{edit ? 1:0}}">
+    {% if edit %}
+        <input type="hidden" name="annotate_url" value="{{path('exercise_annotate')}}">
+        <input type="hidden" name="update_url" value="{{path('exercise_edit', {'id':exercise.id})}}" />
+    {% endif %}
     {% if exercise.medias | length == 1 %} 
         <input type="hidden" name="type" value="audio">
         <input type="hidden" name="audio-url" value="{{asset('media/uploads/')}}{{exercise.medias[0].url}}">

@@ -99,6 +99,51 @@ video::-webkit-media-controls-enclosure {
     border-radius: 5px;
 }
 
-.active-row{
+.note.active-row{
     border-top: 2px solid #06A0E0;
+}
+
+/* primary accent */
+.accent-blue{
+    color:#2797ED;
+    font-size:18px;
+}
+
+/* secondary accent */
+.accent-red{
+    color:#AD0101;
+    font-size:16px;
+}
+
+/* weak vowel */
+.accent-orange{
+    color:#F1591A;
+    font-size:10px;
+}
+/* no accent */
+.accent-black{
+    font-size:14px;
+    color:black;	
+}
+
+
+
+.note{
+    margin-top:2px;
+    padding-left: 5px;
+    border: 1px solid #ccc;
+    border-radius:2px;
+    /*padding: 5px;*/
+    min-height: 30px;
+    vertical-align: baseline;
+}
+
+.time-text{
+    width: 70px;
+    border: 1px solid #ccc;
+    overflow: hidden;
+    border-radius:3px;
+    min-height: 30px;
+    padding-top: 3px;
+    margin-top: 2px;
 }

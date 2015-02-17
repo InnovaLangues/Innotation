@@ -25,8 +25,8 @@ class DictionaryManager {
     public function findOne($id) {
         return $this->getRepository()->find($id);
     }
-    
-    public function findOneByName($name){
+
+    public function findOneByName($name) {
         return $this->getRepository()->findOneBy(array('name' => $name));
     }
 
@@ -43,6 +43,4 @@ class DictionaryManager {
     public function getRepository() {
         return $this->em->getRepository('InnovaSwansBundle:Dictionary');
     }
-
-   
 }
