@@ -1,0 +1,32 @@
+
+body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    color: #2E4338;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td { 
+    border: 1px solid #ccc;
+    padding: 8px;
+    margin: 0;
+}
+
+.time{
+    text-align: center;
+}
+
+hr {
+    height: 1px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding: 0;
+    color: #ccc;
+    background-color: #ccc;
+    border: 0;
+}

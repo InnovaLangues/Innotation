@@ -19,4 +19,8 @@ services:
         class: Innova\SwansBundle\Manager\RegionManager
         arguments:
             entityManager: @doctrine.orm.entity_manager
+    innova.twig.innotation_extension:
+        class: Innova\SwansBundle\Twig\InnotationExtension
+        tags:
+            - { name: twig.extension }
     

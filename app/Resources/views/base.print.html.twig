@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Innova">
+        <title>{% block title %}Innotation{% endblock %}</title>
+        {% block stylesheets %}
+            {% stylesheets 'bundles/innovaswans/css/swans.css' 'bundles/innovaswans/css/swans.print.css' filter='cssrewrite' %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <div class="container content-container">
+            
+            {% block body %} 
+            {% endblock %}
+        </div>
+        
+    </body>
+</html>

@@ -13,15 +13,19 @@
                 {% endif %} 
             </div>
             <div class="col-md-6 text-right">
-                {% if edit %}
-                    <button type="submit" class="btn btn-default glyphicon glyphicon-floppy-disk" title="Save"></button>
-                    <button type="button" class="btn btn-default glyphicon glyphicon-print" data-action="print" title="Print"></button>
-                    <button type="button" class="btn btn-default glyphicon glyphicon-export" data-action="export" title="Export"></button>
-                {% endif %}
-                <button type="button" class="btn btn-default glyphicon glyphicon-align-justify" data-action="toggleText" title="Show/Hide text"></button>
-                <button type="button" class="btn btn-default glyphicon glyphicon-eye-open" data-action="toggleMedias" title="Show/Hide medias"></button>
+                <div class="btn-group">
+                    {% if edit %}
+                        <button type="submit" class="btn btn-default glyphicon glyphicon-floppy-disk" title="Save"></button>
+                        <a href="{{ path('exercise_print', {'id':exercise.id}) }}" target="_blank" title="Print" class="btn btn-default glyphicon glyphicon-print"></a>
+                        <!--
+                        <button type="button" class="btn btn-default glyphicon glyphicon-export" data-action="export" title="Export"></button>
+                        -->
+                    {% endif %}
+                    <button type="button" class="btn btn-default glyphicon glyphicon-align-justify" data-action="toggleText" title="Show/Hide text"></button>
+                    <button type="button" class="btn btn-default glyphicon glyphicon-eye-open" data-action="toggleMedias" title="Show/Hide medias"></button>
+                </div
                 <span id="toggle-media-switch-container">
-                    <input type="checkbox" id="toggle-media-type" name="toggle-media-checkbox" data-on-text="waveform" data-off-text="video" data-off-color="warning" checked>
+                    <input type="checkbox" id="toggle-media-type" name="toggle-media-checkbox" data-on-text="sound" data-off-text="video" data-off-color="warning" checked>
                 </span>
             </div>
         </div>
@@ -76,14 +80,20 @@
                     {% for region in regions %}
                         <div class="row form-row region">
                             <div class="col-xs-1">                                    
-                                <div class="time-text start">{{ region.start }}</div>
+                                <div class="time-text start">{{ region.start | hmsTime }}</div>
                             </div>
                             <div class="col-xs-1">
-                                <div class="time-text end">{{ region.end }}</div>
+                                <div class="time-text end">{{ region.end | hmsTime }}</div>
                             </div>
-                            <div class="{% if edit %}col-xs-9{% else %}col-xs-10{% endif %}">
-                                <div contenteditable="true" class="text-left note">{{ region.note | raw }}</div>
-                            </div>
+                            {% if edit %}
+                                <div class="col-xs-9">
+                                    <div contenteditable="true" class="text-left note">{{ region.note | raw }}</div>
+                                </div>
+                            {% else %}
+                                <div class="col-xs-10">
+                                    <div onclick="goTo( {{ region.start}} );" class="text-left note">{{ region.note | raw }}</div>
+                                </div>
+                            {% endif %}
                             {% if edit %}
                                 <div class="col-xs-1">
                                     <button role="button" type="button" class="btn btn-danger glyphicon glyphicon-trash" onclick="deleteRegion(this);"></button>

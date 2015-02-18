@@ -68,11 +68,6 @@ class ExerciseController extends Controller {
                 $this->get('session')->getFlashBag()->set('error', "Problème lors de la mise à jour de l'exercice.");
             }
             return $this->redirect($this->generateUrl('home'));
-            /*
-              $regions = $this->get('innova.region.manager')->findByAndOrder($exercise);
-              return $this->render('InnovaSwansBundle:Exercise:play.html.twig', array('exercise' => $exercise, 'edit' => true, 'regions' => $regions));
-
-             */
         }
     }
 
@@ -122,7 +117,7 @@ class ExerciseController extends Controller {
     public function deleteAction(Exercise $exercise) {
         if ($this->get('innova.exercise.manager')->delete($exercise)) {
             $this->get('session')->getFlashBag()->set('success', "L'exercice a bien été supprimé.");
-        };
+        }
         return $this->redirect($this->generateUrl('home'));
     }
 
@@ -145,6 +140,33 @@ class ExerciseController extends Controller {
             $response = array("success" => false, "data" => "error while annotating");
         }
         return new Response(json_encode($response));
+    }
+    
+     /**
+     * 
+     * @Route("/exercise/print/{id}", requirements={"id" = "\d+"}, name="exercise_print")
+     * @ParamConverter("exercise", class="InnovaSwansBundle:Exercise")
+     * @Method({"GET"})
+     */
+    public function printAction(Exercise $exercise) {
+        // die('print');
+        $regions = $this->get('innova.region.manager')->findByAndOrder($exercise);
+        if ($exercise->getId()) {
+            return $this->render('InnovaSwansBundle:Exercise:print.html.twig', array('exercise' => $exercise, 'regions' => $regions));
+        } else {
+            $this->get('session')->getFlashBag()->set('error', "Aucun exercice trouvé.");
+            return $this->redirect($this->generateUrl('home'));
+        }
+    }
+    
+      /**
+     * 
+     * @Route("/exercise/export/{id}", requirements={"id" = "\d+"}, name="exercise_export")
+     * @ParamConverter("exercise", class="InnovaSwansBundle:Exercise")
+     * @Method({"GET"})
+     */
+    public function exportAction(Exercise $exercise) {
+        die('export');
     }
 
 }

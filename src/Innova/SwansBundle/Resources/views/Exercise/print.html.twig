@@ -1,0 +1,24 @@
+{% extends 'base.print.html.twig' %}
+
+{% block body %}
+
+    <header>
+        <span class="exercise-title"> {{exercise.name}} </span> 
+    </header>
+    <hr/>
+    <article>
+        <div class="regions-container">
+            <table>
+                {% if regions | length > 0 %}
+                    {% for region in regions %}
+                        <tr>
+                            <td class="time">{{ region.start | hmsTime }}</td>
+                            <td class="time">{{ region.end | hmsTime }}</td>
+                            <td>{{ region.note | raw  }}</td>
+                        </tr>
+                    {% endfor %}                
+                {% endif %}
+            </table>
+        </div>
+    </article>
+{% endblock %}

@@ -157,7 +157,7 @@ WaveSurfer.Region = {
         });
 
         /* Resize handles */
-        if (this.resize) {
+        if (this.resize || this.showStartHandler) {
             var css = {
                 cursor: 'col-resize',
                 position: 'absolute',

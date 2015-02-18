@@ -33,11 +33,15 @@
                                         <span>no-media</span>
                                     {% endif %}
                                 </td>
-                                <td>{{ exercise.name }}</td>
+                                <td> <span class="exercise-title">{{ exercise.name }}</span></td>
                                 <td class="text-right">
                                     <div class="btn-group">
                                         <a href="{{ path('exercise_play', {'id':exercise.id, 'edit':1}) }}" title="Edit" class="btn btn-default glyphicon glyphicon-pencil"></a>
-                                        <a href="{{ path('exercise_delete', {'id':exercise.id}) }}" data-toggle="modal" data-confirm="Sure?" title="Delete" class="btn btn-danger glyphicon glyphicon-trash"></a>                                       
+                                        <a href="{{ path('exercise_print', {'id':exercise.id}) }}" target="_blank" title="Print" class="btn btn-default glyphicon glyphicon-print"></a>
+                                        <!--
+                                        <a href="{#{ path('exercise_export', {'id':exercise.id}) }#}" title="Export" class="btn btn-default glyphicon glyphicon-export"></a>
+                                        -->
+                                        <a href="{{ path('exercise_delete', {'id':exercise.id}) }}" data-toggle="modal" data-confirm="Sure?" title="Delete" class="btn btn-danger glyphicon glyphicon-trash"></a>
                                     </div>
                                 </td>
                             </tr>
