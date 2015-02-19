@@ -38,6 +38,11 @@ class ExerciseManager {
     }
 
     public function delete(Exercise $exercice) {
+        // delete all files from server
+        $medias = $exercice->getMedias();
+        foreach ($medias as $media){            
+            $this->removeUpload($media->getUrl());
+        }
         $this->em->remove($exercice);
         $this->em->flush();
         return $this;
@@ -60,7 +65,7 @@ class ExerciseManager {
     }
 
     /**
-     * 
+     * Handle exercise associated files while creation
      * @param UploadedFile $file
      * @param Exercise $exercise
      * @throws SwansException
@@ -104,7 +109,6 @@ class ExerciseManager {
                     $this->em->persist($exercise);
                     // delete original file
                     $removed = $this->removeUpload($name);
-                    // TODO write log if problem while deleting file
                 } else {
                     $removed = $this->removeUpload($name);
                     throw new SwansException(
@@ -112,8 +116,8 @@ class ExerciseManager {
                     );
                 }
             }
-
             $this->em->flush();
+            
         } else {
             throw new SwansException(
             SwansException::SWANS_EXCEPTION_ERROR_UPLOAD_MESSAGE, SwansException::SWANS_EXCEPTION_ERROR_UPLOAD_CODE
@@ -175,7 +179,6 @@ class ExerciseManager {
         exec($cmd, $output, $returnVar);
         // error
         if ($returnVar !== 0) {
-            // die($cmd);
             return null;
         } else {
             // 2 - create a Media with this sound file

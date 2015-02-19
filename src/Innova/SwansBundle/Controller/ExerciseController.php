@@ -149,7 +149,6 @@ class ExerciseController extends Controller {
      * @Method({"GET"})
      */
     public function printAction(Exercise $exercise) {
-        // die('print');
         $regions = $this->get('innova.region.manager')->findByAndOrder($exercise);
         if ($exercise->getId()) {
             return $this->render('InnovaSwansBundle:Exercise:print.html.twig', array('exercise' => $exercise, 'regions' => $regions));
@@ -159,14 +158,14 @@ class ExerciseController extends Controller {
         }
     }
     
-      /**
+     /**
      * 
      * @Route("/exercise/export/{id}", requirements={"id" = "\d+"}, name="exercise_export")
      * @ParamConverter("exercise", class="InnovaSwansBundle:Exercise")
      * @Method({"GET"})
      */
     public function exportAction(Exercise $exercise) {
-        die('export');
+        die('not implemented yet');
     }
 
 }

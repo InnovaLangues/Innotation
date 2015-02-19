@@ -1,7 +1,7 @@
 // INNOVA JAVASCRIPT HELPERS /OBJECTS
 var strUtils;
 var wavesurferUtils;
-var JavascriptUtils;
+var javascriptUtils;
 
 // VARS
 var transitionType = 'fast';
@@ -11,6 +11,7 @@ var wavesurfer;
 var videoPlayer = null;
 var playing = false;
 var isEditing = false;
+var isInRegionNoteRow = false; // for keyboard event listener, if we are editing a region note row, we don't want the enter keyboard to add a region marker
 
 var isResizing = false;
 var currentlyResizedRegion = null;
@@ -120,7 +121,7 @@ var actions = {
             automaticTextAnnotation();
         }
         else {
-            var text = JavascriptUtils.getSelectedText();
+            var text = javascriptUtils.getSelectedText();
             if (text !== '') {
                 manualTextAnnotation(text, 'accent-' + color);
             }
@@ -203,6 +204,7 @@ $(document).ready(function () {
             $('#audio-player').toggle(transitionType);
             $('#video-player').toggle(transitionType);
             $('#full-screen').toggle();
+            $(this).trigger('blur'); // remove focus to avoid spacebar interraction
         });
 
         videoPlayer = $('#video-player')[0];
@@ -214,8 +216,8 @@ $(document).ready(function () {
 
     var toggleAnnotationCheck = $("[name='toggle-annotation-checkbox']").bootstrapSwitch('state', true);
     $(toggleAnnotationCheck).on('switchChange.bootstrapSwitch', function (event, state) {
-
         $('.annotation-buttons-container').toggle(transitionType);
+         $(this).trigger('blur'); // remove focus to avoid spacebar interraction
     });
 
     /* /SWITCHES INPUTS */
@@ -227,8 +229,8 @@ $(document).ready(function () {
         $this.data('before', $this.html());
         // when focused skip to the start of the region
         var start = $(this).closest(".row.form-row.region").find('input.hidden-start').val();
-        var percent = (start) / wavesurfer.getDuration();
-        wavesurfer.seekAndCenter(percent);
+        goTo(start);
+        isInRegionNoteRow = true;
         return $this;
     }).on('blur keyup paste input', '[contenteditable]', function (e) {
         var $this = $(this);
@@ -238,12 +240,15 @@ $(document).ready(function () {
             updateHiddenNoteOrTitleInput($this);
         }
         return $this;
+    }).on('blur', '[contenteditable]', function (e) {
+        isInRegionNoteRow = false;
     });
+
 
     /* JS HELPERS */
     strUtils = Object.create(StringUtils);
     wavesurferUtils = Object.create(WavesurferUtils);
-    JavascriptUtils = Object.create(JavascriptUtils);
+    javascriptUtils = Object.create(JavascriptUtils);
     /* /JS HELPERS */
 
     /* WAVESURFER */
@@ -289,6 +294,7 @@ $(document).ready(function () {
 
         // check if there are regions defined
         if ($(".row.form-row.region").size() === 0) {
+            console.log('no region creating a new one');
             // if no region : add one by default
             var region = addRegion(0.0, wavesurfer.getDuration(), '', false);
             addRegionToDom(region);
@@ -415,24 +421,26 @@ function goTo(time) {
     }
 }
 
-
+// keyboard evnet media shortcuts
 document.addEventListener("keydown", function (e) {
-
-    // Enter key pressed
-    if (isEditing && e.keyCode === 13) {
-        actions['mark']();
-    }
-    // spacebar
-    else if (e.keyCode === 32) {
-        actions['play']();
-    }
-    // left arrow
-    else if (e.keyCode === 37) {
-        actions['backward']();
-    }
-    // right arrow
-    else if (e.keyCode === 39) {
-        actions['forward']();
+    if (!isInRegionNoteRow) {
+        // Enter key pressed
+        if (isEditing && e.keyCode === 13) {
+            actions['mark']();
+        }
+        // spacebar
+        else if (e.keyCode === 32) {
+            // don't play if we are editing text
+            actions['play']();
+        }
+        // left arrow
+        else if (e.keyCode === 37) {
+            actions['backward']();
+        }
+        // right arrow
+        else if (e.keyCode === 39) {
+            actions['forward']();
+        }
     }
 
 }, false);
@@ -502,6 +510,7 @@ function addRegion(start, end, note, dataset) {
     region = wavesurfer.addRegion(region);
     // set data-id to del button
     if (dataset) {
+        console.log('dataset');
         var regionRow = getRegionRow(start, end);
         var btn = $(regionRow).find('button.glyphicon-trash');
         $(btn).addClass(region.id);
@@ -580,7 +589,7 @@ function deleteRegion(elem) {
  * @param region wavesurfer.region 
  */
 function addRegionToDom(region) {
-    var container = $('.segments-container');
+    var container = $('.regions-container');
     // HTML to append
     var html = '<div class="row form-row region">';
     // start input

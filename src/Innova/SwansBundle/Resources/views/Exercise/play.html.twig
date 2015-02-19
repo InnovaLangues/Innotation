@@ -7,20 +7,22 @@
         <!-- toolbar : save exercise - show / hide text - show / hide media(s) - switch media display waveform - video -->
         <div class="row">
             <div class="col-md-6">
-                <div {% if edit %} contenteditable="true" {% endif %} class="exercise-title">{{exercise.name}}</div>
                 {% if edit %}
+                    <div contenteditable="true" class="exercise-title">{{exercise.name}}</div>
                     <input type="hidden" name="title" value="{{exercise.name}}" />
+                {% else %}
+                    <div class="exercise-title">{{exercise.name}}</div>
                 {% endif %} 
             </div>
             <div class="col-md-6 text-right">
                 <div class="btn-group">
                     {% if edit %}
-                        <button type="submit" class="btn btn-default glyphicon glyphicon-floppy-disk" title="Save"></button>
-                        <a href="{{ path('exercise_print', {'id':exercise.id}) }}" target="_blank" title="Print" class="btn btn-default glyphicon glyphicon-print"></a>
+                        <button type="submit" class="btn btn-default glyphicon glyphicon-floppy-disk" title="Save"></button>                       
                         <!--
                         <button type="button" class="btn btn-default glyphicon glyphicon-export" data-action="export" title="Export"></button>
                         -->
                     {% endif %}
+                    <a href="{{ path('exercise_print', {'id':exercise.id}) }}" target="_blank" title="Print" class="btn btn-default glyphicon glyphicon-print"></a>
                     <button type="button" class="btn btn-default glyphicon glyphicon-align-justify" data-action="toggleText" title="Show/Hide text"></button>
                     <button type="button" class="btn btn-default glyphicon glyphicon-eye-open" data-action="toggleMedias" title="Show/Hide medias"></button>
                 </div
@@ -50,7 +52,6 @@
                 </div>
             </div>
         </div>
-
         <hr/>
         <!-- media controls -->
         <div class="row">

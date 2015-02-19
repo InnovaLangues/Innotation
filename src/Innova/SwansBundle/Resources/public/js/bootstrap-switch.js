@@ -522,10 +522,12 @@
             };
           })(this),
           "keydown.bootstrapSwitch": (function(_this) {
+               
             return function(e) {
               if (!e.which || _this.options.disabled || _this.options.readonly) {
                 return;
               }
+             
               switch (e.which) {
                 case 37:
                   e.preventDefault();

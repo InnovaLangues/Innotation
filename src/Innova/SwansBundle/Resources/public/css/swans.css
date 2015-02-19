@@ -147,3 +147,7 @@ video::-webkit-media-controls-enclosure {
     padding-top: 3px;
     margin-top: 2px;
 }
+
+video{
+    max-width: 450px;
+}

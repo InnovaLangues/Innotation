@@ -54,7 +54,7 @@ class Exercise
     private $medias;
     
      /**
-     * @ORM\OneToMany(targetEntity="Innova\SwansBundle\Entity\Region", mappedBy="exercise")
+     * @ORM\OneToMany(targetEntity="Innova\SwansBundle\Entity\Region", cascade={"remove", "persist"}, mappedBy="exercise")
      * 
      */
     private $regions;
