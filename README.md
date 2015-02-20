@@ -13,10 +13,6 @@ Installation
 - Fork this repo
 - Create web/media and web/media/uploads directory
 - Change rights on app/cache app/logs app/config web/media folders by using facl or whatever you want
-
-setfacl -R -m u:www-data:rwX -m u:`whoami`:rwX app/cache app/logs app/config web/media
-setfacl -dR -m u:www-data:rwX -m u:`whoami`:rwX app/cache app/logs app/config web/media
-
 - Copy app/config/parameters.yml.dist to app/config/parameters.yml and set the database parameters
 - Install dependencies by running composer install 
 - Install assets php app/console assets:install --symlink
@@ -25,7 +21,7 @@ Known limitations
 -----------------
 
 - No check of media validity when uploading (size / format)
-- Audio is converted in ogg - vorbis (in the case of a video media audio is estracted and then converted)
+- Audio is converted in ogg - vorbis (in the case of a video media audio is extracted and then converted)
 - Video is not converted at all
 - No user rights implemented
 - Keyboard shortcuts events problems with focused elements
