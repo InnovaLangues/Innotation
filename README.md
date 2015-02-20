@@ -28,4 +28,13 @@ Known limitations
 - Audio is converted in ogg - vorbis (in the case of a video media audio is estracted and then converted)
 - Video is not converted at all
 - No user rights implemented
+- Keyboard shortcuts events problems with focused elements
+- Untimely page scrolls with some events
 - ...
+
+Demo
+----
+
+http://dev.innovalangues.net/tests/Innotation/web
+
+
